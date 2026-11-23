@@ -209,31 +209,31 @@ const ring = `${t.verbs.join(' · ')} · `;
 
 <style>
   /* ---------- Hero: text never sits on a photo ---------- */
-  .hero { --d: 0.1s; position: relative; padding-block: calc(var(--hdr-h) + clamp(1.75rem, 5vh, 4rem)) clamp(6.5rem, 12vh, 8.5rem); background: var(--esp-950); color: var(--cream-100); overflow: hidden; isolation: isolate; }
-  :global(html:not(.intro-seen)) .hero { --d: 2.6s; }
+  .hero { --d: 0.1s; position: relative; padding-block: calc(var(--hdr-h) + clamp(1.75rem, 5vh, 4rem)) clamp(6.5rem, 12vh, 8.5rem); background: radial-gradient(60% 55% at 88% 12%, rgb(238 211 154 / 0.6), transparent 70%), radial-gradient(45% 45% at 5% 95%, rgb(232 150 46 / 0.12), transparent 70%), linear-gradient(180deg, #fffaf1 0%, #f6e9d4 100%); color: var(--esp-900); overflow: hidden; isolation: isolate; }
+  :global(html:not(.intro-seen)) .hero { --d: 3.1s; }
   .hero__glow { position: absolute; z-index: -1; top: -30vw; right: -25vw; width: 90vw; height: 90vw; max-width: 1100px; max-height: 1100px; background: radial-gradient(circle, rgb(212 164 82 / 0.16), transparent 62%); pointer-events: none; }
   .hero__grid { display: grid; gap: clamp(3rem, 7vw, 5rem); align-items: center; }
   .hero__text { display: grid; gap: 1.6rem; justify-items: start; }
-  .hero__eyebrow { --accent: var(--gold-300); }
+  .hero__eyebrow { --accent: var(--gold-700); }
   .hero__title { margin: 0; display: grid; font-family: var(--font-display); font-weight: 400; font-size: clamp(3.1rem, 1.7rem + 5.4vw, 6.6rem); line-height: 1.02; letter-spacing: -0.012em; }
   :global(:lang(mr)) .hero__title { font-family: var(--font-mr); font-size: clamp(2.7rem, 1.6rem + 4.4vw, 5.4rem); line-height: 1.26; letter-spacing: 0; }
-  .hero__line { display: block; color: var(--cream-100); }
+  .hero__line { display: block; color: var(--esp-900); }
   /* The second line is typed: scripts/home.ts types each phrase, pauses, deletes it and types the next.
      Only one phrase is ever on the line, and the line keeps its height while empty. */
-  .hero__rot { display: block; min-height: 1.06em; color: var(--gold-200); white-space: nowrap; }
+  .hero__rot { display: block; min-height: 1.06em; color: #8a5a1c; white-space: nowrap; }
   :global(:lang(mr)) .hero__rot { min-height: 1.26em; }
   .hero__caret { display: inline-block; width: 0.06em; min-width: 3px; height: 0.8em; margin-left: 0.08em; vertical-align: -0.02em; border-radius: 2px; background: var(--metal); animation: caret 1.05s steps(1) infinite; }
   @keyframes caret { 50% { opacity: 0; } }
-  .hero__lede { max-width: 34ch; margin: 0; font-size: var(--step-1); line-height: 1.55; color: #eadfcd; }
+  .hero__lede { max-width: 34ch; margin: 0; font-size: var(--step-1); line-height: 1.55; color: var(--esp-700); }
   :global(:lang(mr)) .hero__lede { line-height: 1.75; }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .hero__ghost { --fg: var(--cream-100); --bg: var(--esp-950); }
+  .hero__ghost { --fg: var(--esp-900); --bg: var(--cream-50); }
 
   .hero__media { position: relative; justify-self: center; width: min(100%, 440px); margin: 0; padding: 18px 18px 0 0; }
-  .hero__arch { position: relative; aspect-ratio: 4 / 5; border-radius: 50% 50% 26px 26px / 40% 40% 26px 26px; overflow: hidden; background: var(--esp-800); box-shadow: 0 50px 90px -45px rgb(0 0 0 / 0.8); }
+  .hero__arch { position: relative; aspect-ratio: 4 / 5; border-radius: 50% 50% 26px 26px / 40% 40% 26px 26px; overflow: hidden; background: var(--esp-800); box-shadow: 0 50px 90px -40px rgb(62 34 20 / 0.5), 0 0 0 6px rgb(255 250 241 / 0.9); }
   .hero__arch :global(picture) { position: absolute; inset: -7% 0; display: block; }
   .hero__arch :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-  .hero__outline { position: absolute; inset: 0 0 18px 18px; border: 1px solid rgb(226 188 114 / 0.6); border-radius: 50% 50% 28px 28px / 40% 40% 28px 28px; pointer-events: none; }
+  .hero__outline { position: absolute; inset: 0 0 18px 18px; border: 1.5px solid rgb(192 138 58 / 0.75); border-radius: 50% 50% 28px 28px / 40% 40% 28px 28px; pointer-events: none; }
   .hero__badge { position: absolute; z-index: 2; left: -14px; bottom: 54px; width: 118px; height: 118px; overflow: visible; }
   .hero__badge-bg { fill: var(--esp-900); }
   .hero__badge-line { fill: none; stroke: rgb(226 188 114 / 0.45); stroke-width: 1; }
@@ -241,13 +241,13 @@ const ring = `${t.verbs.join(' · ')} · `;
   :global(:lang(mr)) .hero__badge-text { font-size: 17px; letter-spacing: 0.02em; text-transform: none; }
   .hero__badge-24 { fill: var(--gold-200); font: 400 46px/1 var(--font-display); }
   .hero__ring { transform-box: view-box; transform-origin: 100px 100px; }
-  .hero__cap { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.1rem; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; color: #cdb9a3; }
+  .hero__cap { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.1rem; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; color: #6e5240; }
   :global(:lang(mr)) .hero__cap { font-size: 0.9rem; letter-spacing: 0.02em; text-transform: none; }
   .hero__cap::before { content: ''; width: 2.2rem; height: 1px; background: var(--metal-soft); }
 
   /* ---------- Four doors ---------- */
   .doors { --d: 0.1s; position: relative; z-index: 5; margin-top: -3.4rem; }
-  :global(html:not(.intro-seen)) .doors { --d: 2.6s; }
+  :global(html:not(.intro-seen)) .doors { --d: 3.1s; }
   .doors__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; margin: 0; list-style: none; overflow: hidden; border-radius: 22px; background: var(--cream-50); box-shadow: 0 30px 60px -28px rgb(23 12 6 / 0.6), 0 0 0 1px rgb(192 138 58 / 0.28); }
   .doors__list li { min-width: 0; }
   .doors__list li:nth-child(even) { border-left: 1px solid var(--line); }

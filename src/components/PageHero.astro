@@ -1,7 +1,8 @@
 ---
-// Inner-page hero: the text sits on a solid panel so it is always readable, with the page's own
-// photo framed beside it (below it on phones). The photo is the LCP element: the page preloads it
-// with the same `sizes` (PAGE_HERO_SIZES), and its entrance is CSS transforms only.
+// Inner-page hero, bright: dark text on warm ivory (always readable), the page's own photo framed
+// beside it (below it on phones). Motion is CSS only, so nothing waits on JavaScript:
+// the title's words cascade up, a gold panel sweeps off the photo, gold rings turn slowly behind.
+// The photo is the LCP element: the page preloads it with the same `sizes` (PAGE_HERO_SIZES).
 import HeroPicture from './HeroPicture.astro';
 import { PAGE_HERO_SIZES } from '../lib/hero';
 import type { PhotoId } from '../lib/photos';
@@ -17,53 +18,72 @@ interface Props {
   position?: string;
 }
 const { lang, photo, eyebrow, title, lede, tone = 'esp', position = 'center' } = Astro.props;
+const words = title.split(' ');
 ---
 <section class="ph grain" data-tone={tone} aria-labelledby="ph-title" data-page-hero>
+  <span class="ph__ring ph__ring--a" aria-hidden="true"></span>
+  <span class="ph__ring ph__ring--b" aria-hidden="true"></span>
   <div class="wrap ph__grid">
     <div class="ph__text">
       <p class="eyebrow ph__eyebrow">{eyebrow}</p>
-      <h1 id="ph-title" class="h-display ph__title">{title}</h1>
+      <h1 id="ph-title" class="h-display ph__title">{words.map((w, i) => <span class="ph__w" style={`--i:${i}`}>{w}</span>)}</h1>
       <p class="lede ph__lede">{lede}</p>
       <div class="ph__ctas"><slot name="ctas" /></div>
     </div>
     <figure class="ph__media" style={`--pos:${position}`}>
       <span class="ph__frame" aria-hidden="true"></span>
       <HeroPicture id={photo} lang={lang} sizes={PAGE_HERO_SIZES} class="ph__pic" />
+      <span class="ph__sweep" aria-hidden="true"></span>
     </figure>
   </div>
   <slot name="after" />
 </section>
 
 <style>
-  .ph { position: relative; padding-block: calc(var(--hdr-h) + clamp(1.5rem, 5vh, 3.5rem)) clamp(3rem, 7vh, 5rem); background: radial-gradient(60% 60% at 100% 0%, rgb(212 164 82 / 0.13), transparent 70%), var(--esp-950); color: var(--cream-100); overflow: hidden; isolation: isolate; }
-  .ph[data-tone='cinnamon'] { background: radial-gradient(60% 60% at 100% 0%, rgb(201 115 63 / 0.24), transparent 70%), #1e0e07; }
+  .ph { position: relative; padding-block: calc(var(--hdr-h) + clamp(1.5rem, 5vh, 3.5rem)) clamp(3rem, 7vh, 5rem); background: radial-gradient(55% 60% at 92% 8%, rgb(238 211 154 / 0.6), transparent 70%), radial-gradient(40% 45% at 0% 100%, rgb(232 150 46 / 0.12), transparent 70%), linear-gradient(180deg, #fffaf1 0%, #f6e9d4 100%); color: var(--esp-900); overflow: hidden; isolation: isolate; }
+  .ph[data-tone='cinnamon'] { background: radial-gradient(55% 60% at 92% 8%, rgb(229 161 104 / 0.45), transparent 70%), radial-gradient(40% 45% at 0% 100%, rgb(164 83 43 / 0.14), transparent 70%), linear-gradient(180deg, #fff8f0 0%, #f7e4d2 100%); }
+  .ph__ring { position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; }
+  .ph__ring--a { top: -18vw; right: -12vw; width: 52vw; height: 52vw; max-width: 760px; max-height: 760px; border: 1px solid rgb(192 138 58 / 0.35); }
+  .ph__ring--b { top: -10vw; right: -4vw; width: 36vw; height: 36vw; max-width: 520px; max-height: 520px; border: 1px dashed rgb(192 138 58 / 0.4); }
+  .ph__ring--b::before { content: ''; position: absolute; top: 50%; left: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--metal); }
   .ph__grid { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); align-items: center; }
   .ph__text { display: grid; gap: 1.25rem; justify-items: start; }
-  .ph__eyebrow { --accent: var(--gold-300); }
-  .ph__title { max-width: 12ch; color: var(--cream-100); }
-  .ph__lede { max-width: 38ch; color: #e8dbc7; }
+  .ph__eyebrow { --accent: var(--gold-700); }
+  .ph[data-tone='cinnamon'] .ph__eyebrow { --accent: var(--cinnamon); }
+  .ph__title { max-width: 12ch; color: var(--esp-900); }
+  .ph__w { display: inline-block; margin-inline-end: 0.24em; }
+  .ph__w:last-child { margin-inline-end: 0; }
+  .ph__lede { max-width: 38ch; color: var(--esp-700); }
   .ph__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
   .ph__ctas:empty { display: none; }
   .ph__media { position: relative; margin: 0 14px 14px 0; aspect-ratio: 4 / 3; }
-  .ph__frame { position: absolute; inset: 14px -14px -14px 14px; border: 1px solid rgb(226 188 114 / 0.5); border-radius: 30px; pointer-events: none; }
-  .ph__media :global(picture) { position: absolute; inset: 0; display: block; overflow: hidden; border-radius: 28px; background: var(--esp-800); box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.7); }
+  .ph__frame { position: absolute; inset: 14px -14px -14px 14px; border: 1.5px solid rgb(192 138 58 / 0.6); border-radius: 30px; pointer-events: none; }
+  .ph__media :global(picture) { position: absolute; inset: 0; display: block; overflow: hidden; border-radius: 28px; background: var(--cream-200); box-shadow: 0 40px 80px -40px rgb(62 34 20 / 0.5), 0 0 0 6px rgb(255 250 241 / 0.9); }
   .ph__media :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos); }
+  .ph__sweep { position: absolute; inset: 0; z-index: 2; border-radius: 28px; background: var(--metal); transform: scaleX(0); transform-origin: right center; pointer-events: none; }
   @media (min-width: 960px) {
     .ph { display: grid; align-content: center; min-height: min(100svh, 940px); }
     .ph__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
     .ph__media { aspect-ratio: 5 / 4; }
   }
   @media (prefers-reduced-motion: no-preference) {
-    :global(.motion) .ph__text > * { animation: ph-rise 1.2s var(--ease-out) both; }
-    :global(.motion) .ph__text > :nth-child(2) { animation-delay: 0.08s; }
-    :global(.motion) .ph__text > :nth-child(3) { animation-delay: 0.16s; }
-    :global(.motion) .ph__text > :nth-child(4) { animation-delay: 0.24s; }
+    /* Transforms only, and visible from the first frame, so the largest paint is never held back. */
+    :global(.motion) .ph__eyebrow { animation: ph-rise 1.1s var(--ease-out) both; }
+    :global(.motion) .ph__w { animation: ph-word 1.2s var(--ease-out) calc(0.08s + var(--i) * 0.09s) both; }
+    :global(.motion) .ph__lede { animation: ph-rise 1.2s var(--ease-out) 0.3s both; }
+    :global(.motion) .ph__ctas { animation: ph-rise 1.2s var(--ease-out) 0.42s both; }
     :global(.motion) .ph__media { animation: ph-rise-far 1.5s var(--ease-out) both; }
     :global(.motion) .ph__media :global(img) { animation: ph-settle 2.6s var(--ease-out) both; }
-    :global(.motion) .ph__frame { animation: ph-frame 1.6s var(--ease-out) 0.25s both; }
+    :global(.motion) .ph__sweep { animation: ph-sweep 1.15s var(--ease-in-out) 0.1s both; }
+    :global(.motion) .ph__frame { animation: ph-frame 1.6s var(--ease-out) 0.5s both; }
+    :global(.motion) .ph__ring--a { animation: ph-spin 60s linear infinite; }
+    :global(.motion) .ph__ring--b { animation: ph-spin 34s linear infinite reverse; }
   }
   @keyframes ph-rise { from { transform: translateY(26px); } }
-  @keyframes ph-rise-far { from { transform: translateY(60px); } }
-  @keyframes ph-settle { from { transform: scale(1.14); } }
+  @keyframes ph-rise-far { from { transform: translateY(60px) scale(0.96); } }
+  @keyframes ph-word { from { transform: translateY(0.55em) rotate(4deg); } }
+  @keyframes ph-settle { from { transform: scale(1.18); } }
+  @keyframes ph-sweep { from { transform: scaleX(1); } }
   @keyframes ph-frame { from { opacity: 0; transform: translate(-14px, -14px); } }
+  @keyframes ph-spin { to { transform: rotate(360deg); } }
 </style>

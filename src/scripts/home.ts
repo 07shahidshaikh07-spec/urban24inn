@@ -30,7 +30,7 @@ export function initHome(): Cleanup {
       const intro = !!document.querySelector('[data-intro]') && !document.documentElement.classList.contains('intro-seen');
       const run = async () => {
         let i = 0;
-        await wait(intro ? 3400 : 1200);
+        await wait(intro ? 4000 : 1200);
         while (alive && phrases.length > 1) {
           await wait(HOLD_MS);
           while (alive && (!inView || document.hidden)) await wait(400);

@@ -41,7 +41,7 @@ const petals = Array.from({ length: 16 }, () => ({ x: (rand() * 100).toFixed(1),
     <div class="wrap bh__grid">
       <div class="bh__in">
         <p class="eyebrow bh__eyebrow">{b.hero.eyebrow}</p>
-        <h1 id="bh-title" class="h-display bh__title">{b.hero.title}</h1>
+        <h1 id="bh-title" class="h-display bh__title">{b.hero.title.split(' ').map((w, i) => <span class="bh__w" style={`--i:${i}`}>{w}</span>)}</h1>
         <p class="lede bh__lede">{b.hero.lede}</p>
         <a class="btn btn--gold" href="#enquiry" data-magnetic>{b.hero.cta}<Icon name="arrowRight" /></a>
       </div>
@@ -126,7 +126,7 @@ const petals = Array.from({ length: 16 }, () => ({ x: (rand() * 100).toFixed(1),
 
 <style>
   /* Hero: words on a solid panel, the hall in a gold arch (as on the home page) */
-  .bh { position: relative; padding-block: calc(var(--hdr-h) + 7.5rem) clamp(4rem, 9vh, 6rem); overflow: hidden; isolation: isolate; color: var(--cream-100); background: radial-gradient(ellipse 55% 45% at 28% 50%, rgb(232 150 46 / 0.14), transparent 72%), radial-gradient(ellipse at 50% 0%, #3a1d0e 0%, var(--esp-950) 62%); }
+  .bh { position: relative; padding-block: calc(var(--hdr-h) + 7.5rem) clamp(4rem, 9vh, 6rem); overflow: hidden; isolation: isolate; color: var(--esp-900); background: radial-gradient(55% 50% at 85% 30%, rgb(232 150 46 / 0.22), transparent 70%), radial-gradient(45% 45% at 10% 90%, rgb(238 211 154 / 0.5), transparent 70%), linear-gradient(180deg, #fff8ee 0%, #f8e7cf 100%); }
   .bh :global(.bh__toran) { position: absolute; top: var(--hdr-h); left: 0; right: 0; z-index: 1; }
   .bh__petals { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .bh__petals span { position: absolute; top: -40px; width: 14px; height: 10px; border-radius: 60% 0 60% 0; background: radial-gradient(circle at 30% 30%, #f4b04a, #d06a17); transform: scale(var(--s)) rotate(var(--r)); animation: petal linear infinite; animation-play-state: paused; opacity: 0.85; }
@@ -135,14 +135,16 @@ const petals = Array.from({ length: 16 }, () => ({ x: (rand() * 100).toFixed(1),
   @keyframes petal { to { transform: translate3d(60px, 110vh, 0) scale(var(--s)) rotate(calc(var(--r) + 540deg)); } }
   .bh__grid { position: relative; z-index: 2; display: grid; gap: clamp(2.75rem, 6vw, 4.5rem); align-items: center; }
   .bh__in { display: grid; justify-items: start; gap: 1.3rem; }
-  .bh__eyebrow { --accent: var(--marigold); }
-  .bh__title { max-width: 10ch; color: var(--gold-200); }
-  .bh__lede { color: #e9dcc8; }
+  .bh__eyebrow { --accent: var(--cinnamon); }
+  .bh__title { max-width: 10ch; color: var(--esp-900); }
+  .bh__w { display: inline-block; margin-inline-end: 0.24em; }
+  .bh__w:last-child { margin-inline-end: 0; }
+  .bh__lede { color: var(--esp-700); }
   .bh__media { position: relative; justify-self: center; width: min(100%, 420px); margin: 0; padding: 18px 18px 0 0; }
-  .bh__arch { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 50% 50% 26px 26px / 40% 40% 26px 26px; background: var(--esp-800); box-shadow: 0 50px 90px -45px rgb(0 0 0 / 0.8); }
+  .bh__arch { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 50% 50% 26px 26px / 40% 40% 26px 26px; background: var(--esp-800); box-shadow: 0 50px 90px -40px rgb(62 34 20 / 0.5), 0 0 0 6px rgb(255 250 241 / 0.9); }
   .bh__arch :global(picture) { position: absolute; inset: 0; display: block; }
   .bh__arch :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; }
-  .bh__outline { position: absolute; inset: 0 0 18px 18px; border: 1px solid rgb(232 150 46 / 0.6); border-radius: 50% 50% 28px 28px / 40% 40% 28px 28px; pointer-events: none; }
+  .bh__outline { position: absolute; inset: 0 0 18px 18px; border: 1.5px solid rgb(232 150 46 / 0.8); border-radius: 50% 50% 28px 28px / 40% 40% 28px 28px; pointer-events: none; }
   .bh__note { position: absolute; right: 30px; bottom: 12px; padding: 0.3rem 0.75rem; border-radius: 999px; background: rgb(23 12 6 / 0.78); color: #eadfcd; font-size: 0.7rem; letter-spacing: 0.06em; }
   @media (min-width: 960px) {
     .bh { display: grid; align-content: center; min-height: 100svh; }
@@ -151,7 +153,8 @@ const petals = Array.from({ length: 16 }, () => ({ x: (rand() * 100).toFixed(1),
   }
   @media (prefers-reduced-motion: no-preference) {
     :global(.motion) .bh__in > * { animation: bh-rise 1.3s var(--ease-out) both; }
-    :global(.motion) .bh__in > :nth-child(2) { animation-delay: 0.1s; }
+    :global(.motion) .bh__in > :nth-child(2) { animation: none; }
+    :global(.motion) .bh__w { animation: bh-word 1.2s var(--ease-out) calc(0.1s + var(--i) * 0.1s) both; }
     :global(.motion) .bh__in > :nth-child(3) { animation-delay: 0.2s; }
     :global(.motion) .bh__in > :nth-child(4) { animation-delay: 0.3s; }
     :global(.motion) .bh__arch { animation: bh-rise-far 1.5s var(--ease-out) both; }
@@ -159,6 +162,7 @@ const petals = Array.from({ length: 16 }, () => ({ x: (rand() * 100).toFixed(1),
     :global(.motion) .bh__outline { animation: bh-outline 1.6s var(--ease-out) 0.3s both; }
   }
   @keyframes bh-rise { from { transform: translateY(30px); } }
+  @keyframes bh-word { from { transform: translateY(0.55em) rotate(4deg); } }
   @keyframes bh-rise-far { from { transform: translateY(70px); } }
   @keyframes bh-settle { from { transform: scale(1.16); } }
   @keyframes bh-outline { from { opacity: 0; transform: translate(-18px, 18px); } }
