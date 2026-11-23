@@ -1,0 +1,126 @@
+---
+// Illustrated steel thali. Contents come from src/content/dalchini.json (thalis).
+import { restaurant as dalchini, tr, type Lang } from '../lib/site';
+import { ui } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].restaurant.thali;
+const tones: Record<string, string> = {
+  rassa: '#8f2c16', dry: '#5d2c12', keema: '#6d3a1c', egg: '#b4511f',
+  pandhra: '#efe3c8', sol: '#d896ab', chapati: '#ddb27a',
+};
+const sets = Object.fromEntries(dalchini.thalis.items.map((th) => [th.id, th.parts.map((p) => p.tone)]));
+const first = dalchini.thalis.items[0];
+// Bowl positions on a 600 x 600 plate: [cx, cy, r]
+const spots: [number, number, number][] = [
+  [178, 178, 70], [300, 122, 64], [422, 178, 70], [476, 302, 60], [124, 306, 60], [438, 436, 58], [258, 404, 104],
+];
+---
+<div class="thali" data-thali data-tones={JSON.stringify(tones)} data-sets={JSON.stringify(sets)}>
+  <div class="thali__art">
+    <svg viewBox="0 0 600 600" role="img" aria-labelledby="thali-svg-title" focusable="false">
+      <title id="thali-svg-title">{lang === 'en' ? 'Illustration of a steel thali with bowls around a stack of chapatis' : 'चपात्यांच्या भोवती वाट्या असलेल्या स्टीलच्या थाळीचं चित्र'}</title>
+      <defs>
+        <radialGradient id="steel" cx="42%" cy="38%" r="70%">
+          <stop offset="0" stop-color="#eef0f3" />
+          <stop offset="0.7" stop-color="#cfd4da" />
+          <stop offset="1" stop-color="#b3bac3" />
+        </radialGradient>
+      </defs>
+      <g class="th-plate">
+        <circle cx="300" cy="300" r="288" fill="#b9c0c8" />
+        <circle cx="300" cy="300" r="280" fill="url(#steel)" />
+        <circle cx="300" cy="300" r="252" fill="#dde1e6" stroke="#b7bec6" stroke-width="3" />
+        <path d="M80 210a230 230 0 0 1 150-140" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="7" stroke-linecap="round" />
+      </g>
+      {spots.map(([cx, cy, r], i) => {
+        const tone = first.parts[i]?.tone ?? 'rassa';
+        const chapati = i === 6;
+        return (
+          <g class="th-bowl" data-origin={`${cx} ${cy}`}>
+            {chapati ? (
+              <g class="th-fill" fill={tones[tone]}>
+                <circle cx={cx + 18} cy={cy - 10} r={r * 0.86} />
+                <circle cx={cx - 12} cy={cy + 10} r={r * 0.86} stroke="#c4955a" stroke-width="2" />
+                {[[-30, 0], [10, 30], [24, -18], [-10, -30], [-40, 34], [40, 12]].map(([dx, dy]) => (
+                  <circle cx={cx - 12 + dx} cy={cy + 10 + dy} r="5" fill="#a86b32" fill-opacity=".55" />
+                ))}
+              </g>
+            ) : (
+              <>
+                <circle cx={cx} cy={cy} r={r} fill="#c3c9d0" stroke="#9ea6af" stroke-width="2.5" />
+                <g class="th-fill" fill={tones[tone]}>
+                  <circle cx={cx} cy={cy} r={r - 10} />
+                  <ellipse cx={cx - r * 0.25} cy={cy - r * 0.28} rx={r * 0.3} ry={r * 0.12} fill="#fff" fill-opacity=".18" />
+                  {i === 3 && (
+                    <>
+                      <ellipse cx={cx - 12} cy={cy + 6} rx="17" ry="13" fill="#fffaf0" />
+                      <circle cx={cx - 12} cy={cy + 6} r="7" fill="#f2b01e" />
+                      <ellipse cx={cx + 16} cy={cy - 8} rx="17" ry="13" fill="#fffaf0" />
+                      <circle cx={cx + 16} cy={cy - 8} r="7" fill="#f2b01e" />
+                    </>
+                  )}
+                  {(i === 1 || i === 2) && [[-16, 8], [10, 14], [14, -12], [-6, -14], [0, 2]].map(([dx, dy]) => (
+                    <circle cx={cx + dx} cy={cy + dy} r="6.5" fill="#000" fill-opacity=".16" />
+                  ))}
+                </g>
+                <path d={`M${cx - r + 10} ${cy - 8}a${r - 10} ${r - 10} 0 0 1 ${r * 0.7} ${-r * 0.62}`} fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="4" stroke-linecap="round" />
+              </>
+            )}
+          </g>
+        );
+      })}
+      <g class="th-steam" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="3" stroke-linecap="round">
+        <path d="M160 120c-10-14 10-22 0-38s10-24 0-38" />
+        <path d="M192 128c-10-14 10-22 0-38s10-24 0-38" />
+        <path d="M112 250c-10-14 10-22 0-38s10-24 0-38" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="thali__side">
+    <div class="thali__pick" role="group" aria-label={t.pick}>
+      {dalchini.thalis.items.map((th, i) => (
+        <button type="button" class="thali__choice" data-thali-pick={th.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+          {tr(th.name, lang)}
+        </button>
+      ))}
+    </div>
+    {dalchini.thalis.items.map((th, i) => (
+      <ol class="thali__list" role="list" data-thali-list={th.id} hidden={i !== 0}>
+        {th.parts.map((p, j) => (
+          <li>
+            <button type="button" class="thali__part" data-part={j}>
+              <span class="thali__swatch" style={`background:${tones[p.tone]}`} aria-hidden="true"></span>
+              <span class="thali__name">{lang === 'en' ? p.en : p.mr}</span>
+              {lang === 'en' && <span class="thali__mr" lang="mr">{p.mr}</span>}
+            </button>
+          </li>
+        ))}
+      </ol>
+    ))}
+  </div>
+</div>
+
+<style>
+  .thali { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .thali__art svg { width: min(100%, 560px); margin-inline: auto; overflow: visible; filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.35)); }
+  .th-steam { opacity: 0; transition: opacity 1s; }
+  :global(.is-steaming) .th-steam { opacity: 1; }
+  .th-steam path { stroke-dasharray: 8 10; animation: steam 3.2s linear infinite; }
+  .th-steam path:nth-child(2) { animation-delay: -1.1s; }
+  .th-steam path:nth-child(3) { animation-delay: -2.1s; }
+  @keyframes steam { from { stroke-dashoffset: 0; transform: translateY(0); opacity: 0.9; } to { stroke-dashoffset: -36; transform: translateY(-14px); opacity: 0; } }
+  .thali__pick { display: inline-flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .thali__choice { min-height: 44px; padding: 0.55rem 1.1rem; border: 1.5px solid var(--line); border-radius: 999px; background: none; font-weight: 600; }
+  .thali__choice[aria-pressed='true'] { background: var(--gold-300); border-color: var(--gold-300); color: var(--esp-900); }
+  .thali__list { display: grid; gap: 0.25rem; padding: 0; margin: 0; list-style: none; }
+  .thali__part { display: flex; align-items: baseline; gap: 0.8rem; width: 100%; min-height: 44px; padding: 0.5rem 0.25rem; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: start; font-size: var(--step-1); }
+  .thali__part:hover .thali__name, .thali__part:focus-visible .thali__name { color: var(--gold-300); }
+  .thali__swatch { flex: none; width: 0.9rem; height: 0.9rem; border-radius: 50%; border: 2px solid rgb(255 255 255 / 0.5); align-self: center; }
+  .thali__mr { margin-inline-start: auto; font-family: var(--font-mr); font-size: var(--step-0); color: var(--muted); }
+  .thali__note { margin-top: 1rem; }
+  @media (min-width: 900px) { .thali { grid-template-columns: 1.15fr 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .th-steam path { animation: none; } }
+</style>

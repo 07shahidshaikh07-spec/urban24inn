@@ -1,0 +1,70 @@
+---
+import { site, show, href, num, waLink, fullAddress, type Lang } from '../lib/site';
+import { ui } from '../i18n/ui';
+import Tbc from './Tbc.astro';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const c = site.contact;
+const year = new Date().getFullYear();
+// Credit for the agency that built the site.
+const BOOSTIMIZE = 'https://www.instagram.com/boostimize.media/';
+---
+<footer class="ft s-esp-deep">
+  <div class="wrap">
+    <div class="ft__brand" data-rise>
+      <Logo variant="fullLight" width={360} decorative />
+      <p class="ft__tag">{t.footer.tagline}</p>
+    </div>
+    <div class="ft__cols">
+      <nav class="ft__col" aria-label={t.footer.explore}>
+        <p class="ft__h">{t.footer.explore}</p>
+        <a href={href('restaurant', lang)}>{t.nav.restaurant}</a>
+        <a href={href('rooms', lang)}>{t.nav.rooms}</a>
+        <a href={href('banquet', lang)}>{t.nav.banquet}</a>
+        <a href={href('home', lang, '#rooftop')}>{t.nav.rooftop} · {t.nav.soon}</a>
+      </nav>
+      <div class="ft__col">
+        <p class="ft__h">{t.visit.addressLabel}</p>
+        <address>{fullAddress(lang)}</address>
+        <a href={site.links.directions} target="_blank" rel="noopener"><Icon name="pin" />{t.visit.directions}</a>
+      </div>
+      <div class="ft__col">
+        <p class="ft__h">{t.footer.contact}</p>
+        {show(c.phone) && <a href={`tel:${c.phone.value}`}><Icon name="phone" /><Tbc confirmed={c.phone.confirmed} lang={lang} note={c.phone.source}>{num(c.phone.display, lang)}</Tbc></a>}
+        {show(c.whatsapp) && <a href={waLink(c.whatsapp.value, t.cta.whatsappText)} target="_blank" rel="noopener"><Icon name="whatsapp" /><Tbc confirmed={c.whatsapp.confirmed} lang={lang} note={c.whatsapp.source}>{t.visit.whatsapp}</Tbc></a>}
+        <a href={site.links.instagram} target="_blank" rel="noopener"><Icon name="instagram" />{t.visit.instagram}</a>
+      </div>
+    </div>
+    <div class="ft__base small">
+      <p>© {num(year, lang)} {t.brand}, {lang === 'en' ? 'Latur' : 'लातूर'}</p>
+      {show(site.fssai) && <p><Tbc confirmed={site.fssai.confirmed} lang={lang} note={site.fssai.source}>{t.footer.fssai}: {site.fssai.value}</Tbc></p>}
+      <p>{t.footer.photos}</p>
+      <p class="ft__credit">{t.footer.credit} <a href={BOOSTIMIZE} target="_blank" rel="noopener"><Icon name="instagram" />Boostimize</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ft { padding-block: clamp(4rem, 9vw, 7rem) calc(2rem + var(--dock-h)); border-top: 1px solid var(--line); }
+  @media (min-width: 900px) { .ft { padding-bottom: 2.5rem; } }
+  .ft__brand { display: grid; justify-items: center; gap: 1.5rem; text-align: center; }
+  .ft__brand :global(img) { width: min(360px, 82vw); height: auto; }
+  .ft__tag { max-width: 46ch; color: var(--muted); }
+  .ft__cols { display: grid; gap: 2rem; margin-top: clamp(3rem, 7vw, 5rem); padding-top: 2.5rem; border-top: 1px solid var(--line); }
+  .ft__col { display: grid; gap: 0.35rem; align-content: start; }
+  .ft__h { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.4rem; }
+  :global(:lang(mr)) .ft__h { letter-spacing: 0.04em; font-size: 0.9rem; text-transform: none; }
+  .ft__col a { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 40px; text-decoration: none; width: fit-content; }
+  .ft__col a:hover { color: var(--gold-200); }
+  .ft__col :global(svg) { width: 18px; height: 18px; color: var(--gold-400); }
+  .ft__col address { font-style: normal; color: var(--muted); max-width: 32ch; }
+  .ft__credit a { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--gold-300); font-weight: 600; text-decoration: none; }
+  .ft__credit a:hover { text-decoration: underline; }
+  .ft__credit :global(svg) { width: 15px; height: 15px; }
+  .ft__base { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  @media (min-width: 800px) { .ft__cols { grid-template-columns: repeat(3, 1fr); } }
+</style>

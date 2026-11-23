@@ -1,0 +1,35 @@
+---
+import { Picture } from 'astro:assets';
+import { photos, type PhotoId } from '../lib/photos';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  id: PhotoId;
+  lang: Lang;
+  sizes: string;
+  widths?: number[];
+  eager?: boolean;
+  /** For photos that are in view but hidden (later hero slides): fetch after everything else. */
+  low?: boolean;
+  class?: string;
+  alt?: string;
+  position?: string;
+}
+const { id, lang, sizes, widths = [480, 800, 1200], eager = false, low = false, class: cls, alt, position } = Astro.props;
+const p = photos[id];
+const max = p.src.width;
+const ws = [...new Set([...widths.filter((w) => w < max), max])];
+---
+<Picture
+  src={p.src}
+  alt={alt ?? p.alt[lang]}
+  formats={['avif', 'webp']}
+  fallbackFormat="jpg"
+  widths={ws}
+  sizes={sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : low ? 'low' : 'auto'}
+  decoding="async"
+  class={cls}
+  style={position ? `object-position:${position}` : undefined}
+/>

@@ -1,0 +1,112 @@
+---
+import { site, href, routes, type Lang, type PageKey } from '../lib/site';
+import { ui } from '../i18n/ui';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props { lang: Lang; page: PageKey | 'other' }
+const { lang, page } = Astro.props;
+const t = ui[lang];
+const other: Lang = lang === 'en' ? 'mr' : 'en';
+const switchTo = page === 'other' ? routes.home[other] : routes[page][other];
+const visitHref = href(page === 'other' ? 'home' : page, lang, '#visit');
+const links = [
+  { key: 'restaurant', label: t.nav.restaurant, href: href('restaurant', lang), verb: t.verbs[0] },
+  { key: 'rooms', label: t.nav.rooms, href: href('rooms', lang), verb: t.verbs[1] },
+  { key: 'banquet', label: t.nav.banquet, href: href('banquet', lang), verb: t.verbs[2] },
+  { key: 'rooftop', label: t.nav.rooftop, href: href('home', lang, '#rooftop'), verb: t.verbs[3], soon: true },
+];
+---
+<header class="hdr" data-hdr>
+  <div class="hdr__in">
+    <a class="hdr__logo" href={href('home', lang)} aria-label={`${t.brand}, ${t.nav.home}`}>
+      <Logo variant="lockupLight" width={150} eager decorative />
+    </a>
+    <nav class="hdr__nav" aria-label={t.nav.label}>
+      {links.map((l) => (
+        <a href={l.href} aria-current={page === l.key ? 'page' : undefined}>
+          {l.label}{l.soon && <span class="hdr__soon">{t.nav.soon}</span>}
+        </a>
+      ))}
+    </nav>
+    <div class="hdr__end">
+      <a class="hdr__lang" href={switchTo} hreflang={other} lang={other} aria-label={t.langSwitch.aria}>{t.langSwitch.label}</a>
+      <a class="btn btn--gold hdr__book" href={site.links.booking} target="_blank" rel="noopener" data-magnetic>{t.nav.book}</a>
+      <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="sheet" data-sheet-open>
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span class="sr-only">{t.nav.open}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" hidden data-sheet role="dialog" aria-modal="true" aria-label={t.nav.label}>
+  <span class="sheet__door sheet__door--l" data-sheet-door="l"></span>
+  <span class="sheet__door sheet__door--r" data-sheet-door="r"></span>
+  <div class="sheet__in">
+    <div data-sheet-item><Logo variant="lockupLight" width={170} decorative /></div>
+    <nav class="sheet__nav" aria-label={t.nav.label}>
+      {links.map((l) => (
+        <a class="sheet__link" href={l.href} data-sheet-item>
+          <span class="sheet__verb">{l.verb}</span>
+          <span class="sheet__name">{l.label}{l.soon && <em> · {t.nav.soon}</em>}</span>
+        </a>
+      ))}
+    </nav>
+    <div class="sheet__foot" data-sheet-item>
+      <a class="btn btn--gold" href={site.links.booking} target="_blank" rel="noopener">{t.nav.book}</a>
+      <a href={visitHref}>{t.nav.visit}</a>
+      <a href={switchTo} hreflang={other} lang={other}>{t.langSwitch.label}</a>
+    </div>
+  </div>
+  <button class="sheet__close" type="button" data-sheet-close><Icon name="close" /><span class="sr-only">{t.nav.close}</span></button>
+</div>
+
+<style>
+  .hdr { position: fixed; inset: 0 0 auto; z-index: 60; color: var(--cream-100); transition: transform 0.6s var(--ease-out), background-color 0.4s, box-shadow 0.4s; }
+  .hdr::before { content: ''; position: absolute; inset: 0 0 -40px; z-index: -1; background: linear-gradient(180deg, rgb(23 12 6 / 0.55), transparent); pointer-events: none; transition: opacity 0.4s; }
+  :global(.hdr--solid) { background: rgb(23 12 6 / 0.96); box-shadow: 0 1px 0 rgb(226 188 114 / 0.22); }
+  :global(.hdr--solid)::before { opacity: 0; }
+  :global(.hdr--hidden) { transform: translateY(-100%); }
+  .hdr__in { display: flex; align-items: center; gap: 1.25rem; height: var(--hdr-h); width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; transition: height 0.4s var(--ease-out); }
+  :global(.hdr--solid) .hdr__in { height: 64px; }
+  .hdr__logo { display: block; margin-inline-end: auto; line-height: 0; }
+  .hdr__logo :global(img) { width: 132px; height: auto; transition: width 0.4s var(--ease-out); }
+  :global(.hdr--solid) .hdr__logo :global(img) { width: 112px; }
+  .hdr__nav { display: none; gap: 0.2rem; }
+  .hdr__nav a { position: relative; display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; padding: 0 0.9rem; text-decoration: none; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; }
+  .hdr__nav a::after { content: ''; position: absolute; left: 0.9rem; right: 0.9rem; bottom: 8px; height: 1px; background: var(--metal-soft); transform: scaleX(0); transform-origin: right; transition: transform 0.5s var(--ease-out); }
+  .hdr__nav a:hover::after, .hdr__nav a[aria-current='page']::after { transform: scaleX(1); transform-origin: left; }
+  .hdr__nav a[aria-current='page'] { color: var(--gold-200); }
+  .hdr__soon { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-300); border: 1px solid rgb(226 188 114 / 0.5); border-radius: 999px; padding: 0.1rem 0.45rem; }
+  .hdr__end { display: flex; align-items: center; gap: 0.6rem; }
+  .hdr__lang { display: none; min-height: 40px; align-items: center; padding: 0 0.8rem; text-decoration: none; font-size: 0.92rem; border-radius: 999px; border: 1px solid rgb(251 244 232 / 0.35); }
+  .hdr__book { min-height: 42px; padding: 0.55em 1.15em; font-size: 0.9rem; }
+  .hdr__burger { position: relative; width: 44px; height: 44px; border: 0; background: none; color: inherit; margin-inline-end: -8px; }
+  .hdr__burger span:not(.sr-only) { position: absolute; left: 11px; right: 11px; height: 1.5px; background: currentColor; transition: transform 0.4s var(--ease-out); }
+  .hdr__burger span:nth-child(1) { top: 17px; }
+  .hdr__burger span:nth-child(2) { top: 26px; left: 17px; }
+  .hdr__burger:hover span:nth-child(2) { transform: translateX(-6px); }
+  @media (max-width: 420px) { .hdr__book { display: none; } }
+  @media (min-width: 1000px) {
+    .hdr__nav, .hdr__lang { display: inline-flex; }
+    .hdr__burger { display: none; }
+    .hdr__logo :global(img) { width: 150px; }
+  }
+
+  .sheet { position: fixed; inset: 0; z-index: 95; color: var(--cream-100); overflow: hidden; }
+  .sheet__door { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--esp-950); }
+  .sheet__door--l { left: 0; box-shadow: inset -1px 0 0 rgb(226 188 114 / 0.4); }
+  .sheet__door--r { right: 0; }
+  .sheet__in { position: relative; z-index: 1; display: grid; align-content: space-between; gap: 2rem; height: 100%; padding: 1.25rem var(--gutter) calc(1.5rem + env(safe-area-inset-bottom)); overflow-y: auto; }
+  .sheet__in :global(img) { width: 140px; height: auto; }
+  .sheet__nav { display: grid; gap: 0.4rem; }
+  .sheet__link { display: grid; gap: 0.1rem; padding-block: 0.6rem; text-decoration: none; border-bottom: 1px solid rgb(226 188 114 / 0.16); }
+  .sheet__verb { font-family: var(--font-display); font-size: clamp(2.3rem, 11vw, 3.6rem); line-height: 1.05; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sheet__verb:lang(mr), :global(:lang(mr)) .sheet__verb { font-family: var(--font-mr); line-height: 1.35; }
+  .sheet__name { font-size: 0.95rem; letter-spacing: 0.08em; color: #cdb9a3; }
+  .sheet__name em { font-style: normal; color: var(--gold-300); }
+  .sheet__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; }
+  .sheet__foot a:not(.btn) { min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; }
+  .sheet__close { position: absolute; z-index: 2; top: 14px; right: calc(var(--gutter) - 8px); width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgb(226 188 114 / 0.4); border-radius: 50%; background: none; color: var(--cream-100); }
+  .sheet__close :global(svg) { width: 22px; height: 22px; }
+</style>

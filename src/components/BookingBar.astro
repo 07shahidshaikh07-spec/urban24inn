@@ -1,0 +1,60 @@
+---
+// Date and guest picker that opens the hotel's own Stayflexi booking page with the dates filled in.
+import { site, type Lang } from '../lib/site';
+import { ui } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props { lang: Lang; id: string; class?: string }
+const { lang, id, class: cls } = Astro.props;
+const t = ui[lang].booking;
+---
+<form class:list={['bk', cls]} data-booking action={site.links.booking} method="get" target="_blank" rel="noopener" aria-label={t.label} novalidate data-err-past={t.errPast} data-err-order={t.errOrder}>
+  <div class="bk__field">
+    <label for={`${id}-in`}><Icon name="calendar" />{t.checkin}</label>
+    <input id={`${id}-in`} name="in" type="date" required data-in />
+  </div>
+  <span class="bk__sep" aria-hidden="true"></span>
+  <div class="bk__field">
+    <label for={`${id}-out`}><Icon name="calendar" />{t.checkout}</label>
+    <input id={`${id}-out`} name="out" type="date" required data-out />
+  </div>
+  <span class="bk__sep" aria-hidden="true"></span>
+  <div class="bk__field bk__guests" role="group" aria-labelledby={`${id}-g`}>
+    <span class="bk__label" id={`${id}-g`}><Icon name="users" />{t.guests}</span>
+    <div class="bk__stepper">
+      <button type="button" data-step="-1" aria-label={t.fewer}><Icon name="minus" /></button>
+      <output class="bk__count" data-guests aria-live="polite">2</output>
+      <input type="hidden" name="num_guests" value="2" data-guests-input />
+      <button type="button" data-step="1" aria-label={t.more}><Icon name="plus" /></button>
+    </div>
+  </div>
+  <button class="btn btn--gold bk__go" type="submit" data-magnetic>{t.submit}<Icon name="arrowRight" /></button>
+  <p class="bk__err" data-bk-error aria-live="polite"></p>
+</form>
+
+<style>
+  .bk { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 0.75rem; align-items: center; padding: 1rem; border-radius: var(--radius); background: var(--cream-50); color: var(--esp-900); box-shadow: 0 30px 60px -25px rgb(23 12 6 / 0.55), 0 0 0 1px rgb(192 138 58 / 0.25); }
+  .bk__field { display: grid; gap: 0.15rem; padding: 0.35rem 0.5rem; border-radius: 12px; transition: background-color 0.3s; }
+  .bk__field:focus-within { background: var(--cream-200); }
+  .bk__field label, .bk__label { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-700); }
+  :global(:lang(mr)) :is(.bk__field label, .bk__label) { letter-spacing: 0.02em; font-size: 0.86rem; text-transform: none; }
+  .bk__field :global(svg) { width: 16px; height: 16px; }
+  .bk__field input[type='date'] { width: 100%; min-height: 40px; border: 0; background: none; font-size: 1rem; font-weight: 600; color: var(--esp-900); padding: 0; }
+  .bk__field input[type='date']:focus-visible { outline: none; }
+  .bk__guests { grid-column: 1 / -1; }
+  .bk__stepper { display: flex; align-items: center; gap: 0.75rem; min-height: 40px; }
+  .bk__stepper button { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgb(140 93 30 / 0.4); background: none; color: var(--gold-700); transition: background-color 0.3s, color 0.3s; }
+  .bk__stepper button:hover { background: var(--gold-700); color: var(--cream-50); }
+  .bk__stepper button :global(svg) { width: 16px; height: 16px; }
+  .bk__count { min-width: 1.6ch; text-align: center; font-size: 1.15rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bk__sep { display: none; }
+  .bk__go { grid-column: 1 / -1; margin-top: 0.5rem; }
+  .bk__err { grid-column: 1 / -1; min-height: 0; font-size: 0.85rem; color: #9b2c1c; }
+  .bk__err:empty { display: none; }
+  @media (min-width: 900px) {
+    .bk { grid-template-columns: 1fr auto 1fr auto 1fr auto; padding: 0.75rem 0.75rem 0.75rem 1.25rem; border-radius: 999px; }
+    .bk__guests, .bk__go { grid-column: auto; margin: 0; }
+    .bk__sep { display: block; width: 1px; height: 38px; background: rgb(140 93 30 / 0.25); }
+    .bk__err { position: absolute; left: 2rem; top: 100%; margin-top: 0.5rem; padding: 0.3rem 0.8rem; border-radius: 999px; background: var(--cream-50); }
+  }
+</style>

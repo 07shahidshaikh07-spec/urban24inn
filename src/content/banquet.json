@@ -1,0 +1,44 @@
+{
+  "exists": {
+    "confirmed": true,
+    "label": "Banquet hall exists",
+    "source": "Client (22 Nov 2026) and the Instagram bio"
+  },
+  "occasions": {
+    "value": {
+      "en": "Family functions, gatherings with friends and events",
+      "mr": "कौटुंबिक कार्यक्रम, मित्रांचे मेळावे आणि समारंभ"
+    },
+    "confirmed": true,
+    "label": "What the hall is for",
+    "source": "Instagram bio: Family • Friends • Events"
+  },
+  "details": {
+    "confirmed": false,
+    "label": "Banquet hall details (capacity, floor, AC, catering)",
+    "source": "Nothing published yet. Owner to confirm.",
+    "capacity": null,
+    "catering": {
+      "en": "Veg and non-veg from the restaurant’s kitchen",
+      "mr": "रेस्टॉरंटच्या स्वयंपाकघरातून शाकाहारी आणि मांसाहारी"
+    }
+  },
+  "rooms": {
+    "value": {
+      "en": "Rooms upstairs for out-of-town guests",
+      "mr": "बाहेरगावच्या पाहुण्यांसाठी वर खोल्या"
+    },
+    "confirmed": true,
+    "label": "Rooms in the same building",
+    "source": "The lodge is in the same building"
+  },
+  "parking": {
+    "value": {
+      "en": "Parking at the building",
+      "mr": "इमारतीजवळ पार्किंग"
+    },
+    "confirmed": true,
+    "label": "Parking",
+    "source": "Agoda, Skyscanner and many reviews"
+  }
+}

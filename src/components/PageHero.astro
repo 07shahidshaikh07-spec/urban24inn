@@ -1,0 +1,69 @@
+---
+// Inner-page hero: the text sits on a solid panel so it is always readable, with the page's own
+// photo framed beside it (below it on phones). The photo is the LCP element: the page preloads it
+// with the same `sizes` (PAGE_HERO_SIZES), and its entrance is CSS transforms only.
+import HeroPicture from './HeroPicture.astro';
+import { PAGE_HERO_SIZES } from '../lib/hero';
+import type { PhotoId } from '../lib/photos';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  photo: PhotoId;
+  eyebrow: string;
+  title: string;
+  lede: string;
+  tone?: 'esp' | 'cinnamon';
+  position?: string;
+}
+const { lang, photo, eyebrow, title, lede, tone = 'esp', position = 'center' } = Astro.props;
+---
+<section class="ph grain" data-tone={tone} aria-labelledby="ph-title" data-page-hero>
+  <div class="wrap ph__grid">
+    <div class="ph__text">
+      <p class="eyebrow ph__eyebrow">{eyebrow}</p>
+      <h1 id="ph-title" class="h-display ph__title">{title}</h1>
+      <p class="lede ph__lede">{lede}</p>
+      <div class="ph__ctas"><slot name="ctas" /></div>
+    </div>
+    <figure class="ph__media" style={`--pos:${position}`}>
+      <span class="ph__frame" aria-hidden="true"></span>
+      <HeroPicture id={photo} lang={lang} sizes={PAGE_HERO_SIZES} class="ph__pic" />
+    </figure>
+  </div>
+  <slot name="after" />
+</section>
+
+<style>
+  .ph { position: relative; padding-block: calc(var(--hdr-h) + clamp(1.5rem, 5vh, 3.5rem)) clamp(3rem, 7vh, 5rem); background: radial-gradient(60% 60% at 100% 0%, rgb(212 164 82 / 0.13), transparent 70%), var(--esp-950); color: var(--cream-100); overflow: hidden; isolation: isolate; }
+  .ph[data-tone='cinnamon'] { background: radial-gradient(60% 60% at 100% 0%, rgb(201 115 63 / 0.24), transparent 70%), #1e0e07; }
+  .ph__grid { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); align-items: center; }
+  .ph__text { display: grid; gap: 1.25rem; justify-items: start; }
+  .ph__eyebrow { --accent: var(--gold-300); }
+  .ph__title { max-width: 12ch; color: var(--cream-100); }
+  .ph__lede { max-width: 38ch; color: #e8dbc7; }
+  .ph__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
+  .ph__ctas:empty { display: none; }
+  .ph__media { position: relative; margin: 0 14px 14px 0; aspect-ratio: 4 / 3; }
+  .ph__frame { position: absolute; inset: 14px -14px -14px 14px; border: 1px solid rgb(226 188 114 / 0.5); border-radius: 30px; pointer-events: none; }
+  .ph__media :global(picture) { position: absolute; inset: 0; display: block; overflow: hidden; border-radius: 28px; background: var(--esp-800); box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.7); }
+  .ph__media :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos); }
+  @media (min-width: 960px) {
+    .ph { display: grid; align-content: center; min-height: min(100svh, 940px); }
+    .ph__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+    .ph__media { aspect-ratio: 5 / 4; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.motion) .ph__text > * { animation: ph-rise 1.2s var(--ease-out) both; }
+    :global(.motion) .ph__text > :nth-child(2) { animation-delay: 0.08s; }
+    :global(.motion) .ph__text > :nth-child(3) { animation-delay: 0.16s; }
+    :global(.motion) .ph__text > :nth-child(4) { animation-delay: 0.24s; }
+    :global(.motion) .ph__media { animation: ph-rise-far 1.5s var(--ease-out) both; }
+    :global(.motion) .ph__media :global(img) { animation: ph-settle 2.6s var(--ease-out) both; }
+    :global(.motion) .ph__frame { animation: ph-frame 1.6s var(--ease-out) 0.25s both; }
+  }
+  @keyframes ph-rise { from { transform: translateY(26px); } }
+  @keyframes ph-rise-far { from { transform: translateY(60px); } }
+  @keyframes ph-settle { from { transform: scale(1.14); } }
+  @keyframes ph-frame { from { opacity: 0; transform: translate(-14px, -14px); } }
+</style>

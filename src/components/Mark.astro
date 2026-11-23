@@ -1,0 +1,20 @@
+---
+// FSSAI-style marks: green square + dot for veg, brown square + triangle for non-veg.
+// The same marks are painted on Dalchini's sign, next to the logo.
+// Pass an empty label when the mark sits next to text that already says veg / non-veg.
+interface Props { veg: boolean; label: string; class?: string }
+const { veg, label, class: cls } = Astro.props;
+---
+<svg
+  class:list={['mark', cls]}
+  viewBox="0 0 16 16"
+  role={label ? 'img' : undefined}
+  aria-label={label || undefined}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+>
+  <rect x="1" y="1" width="14" height="14" rx="1.5" fill="#fff" stroke={veg ? 'var(--veg)' : 'var(--nonveg)'} stroke-width="1.6" />
+  {veg
+    ? <circle cx="8" cy="8" r="3.6" fill="var(--veg)" />
+    : <path d="M8 4.2l4.1 7.2H3.9z" fill="var(--nonveg)" />}
+</svg>

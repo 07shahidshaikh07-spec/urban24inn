@@ -1,0 +1,21 @@
+---
+// The client's logo (cut from the supplied artwork), served as responsive AVIF/WebP.
+import { Picture } from 'astro:assets';
+import { logo, type LogoVariant } from '../lib/brand';
+
+interface Props { variant: LogoVariant; width: number; class?: string; eager?: boolean; alt?: string; decorative?: boolean }
+const { variant, width, class: cls, eager = false, alt = 'Urban 24 Inn', decorative = false } = Astro.props;
+const src = logo[variant];
+const widths = [...new Set([width, width * 2].map((w) => Math.min(w, src.width)))];
+---
+<Picture
+  src={src}
+  formats={['avif', 'webp']}
+  fallbackFormat="png"
+  widths={widths}
+  sizes={`${width}px`}
+  alt={decorative ? '' : alt}
+  class={cls}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding="async"
+/>

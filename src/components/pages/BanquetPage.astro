@@ -1,0 +1,212 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHead from '../SectionHead.astro';
+import Icon from '../Icon.astro';
+import Logo from '../Logo.astro';
+import Toran from '../Toran.astro';
+import HeroPicture from '../HeroPicture.astro';
+import { getHeroSources, HOME_HERO_SIZES } from '../../lib/hero';
+import DraftBlock from '../DraftBlock.astro';
+import CtaBand from '../CtaBand.astro';
+import Visit from '../Visit.astro';
+import { banquet, site, show, tr, type Lang } from '../../lib/site';
+import { graph, banquetLd } from '../../lib/schema';
+import { ui } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const b = t.banquet;
+const base = Astro.site!;
+const jsonLd = graph(banquetLd(base));
+const wa = site.contact.whatsapp;
+const tpl = b.form.message({ people: '{people}', date: '{date}', time: '', name: '{name}', note: '{note}', occasion: '{occasion}' });
+const notePrefix = lang === 'en' ? ' Note: ' : ' सूचना: ';
+const pointIcons = ['bed', 'forkSpoon', 'car'] as const;
+// Placeholder photo from Unsplash until the client sends photos of the hall (see src/lib/photos.ts).
+const HERO = 'banquet-placeholder' as const;
+const hero = await getHeroSources(HERO);
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const petals = Array.from({ length: 16 }, () => ({ x: (rand() * 100).toFixed(1), d: (rand() * 9).toFixed(2), t: (rand() * 6 + 8).toFixed(2), s: (rand() * 0.6 + 0.7).toFixed(2), r: Math.round(rand() * 360) }));
+---
+<Base lang={lang} page="banquet" theme="banquet" title={t.meta.banquet.title} description={t.meta.banquet.description} ogPhoto="facade-side" jsonLd={jsonLd}>
+  <link slot="head" rel="preload" as="image" type="image/avif" imagesrcset={hero.avif} imagesizes={HOME_HERO_SIZES} fetchpriority="high" />
+  <!-- ---------- Hero: toran, falling marigold petals, the hall in a gold arch ---------- -->
+  <section class="bh grain" aria-labelledby="bh-title">
+    <Toran class="bh__toran" strands={19} />
+    <div class="bh__petals" aria-hidden="true">
+      {petals.map((p) => <span style={`left:${p.x}%;animation-delay:-${p.d}s;animation-duration:${p.t}s;--s:${p.s};--r:${p.r}deg`}></span>)}
+    </div>
+    <div class="wrap bh__grid">
+      <div class="bh__in">
+        <p class="eyebrow bh__eyebrow">{b.hero.eyebrow}</p>
+        <h1 id="bh-title" class="h-display bh__title">{b.hero.title}</h1>
+        <p class="lede bh__lede">{b.hero.lede}</p>
+        <a class="btn btn--gold" href="#enquiry" data-magnetic>{b.hero.cta}<Icon name="arrowRight" /></a>
+      </div>
+      <figure class="bh__media">
+        <span class="bh__outline" aria-hidden="true"></span>
+        <div class="bh__arch"><HeroPicture id={HERO} lang={lang} sizes={HOME_HERO_SIZES} /></div>
+        <figcaption class="bh__note">{b.hero.photoNote}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ---------- Occasions ---------- -->
+  <section class="oc s-ivory grain pad" aria-labelledby="oc-title">
+    <div class="wrap oc__in">
+      <span class="oc__mark" aria-hidden="true"><Logo variant="markDark" width={200} decorative /></span>
+      <h2 id="oc-title" class="h-2 oc__text" data-fill>{tr(banquet.occasions.value, lang)}</h2>
+    </div>
+  </section>
+
+  <!-- ---------- Why here ---------- -->
+  <section class="wh s-cream pad" aria-labelledby="wh-title">
+    <div class="wrap">
+      <SectionHead id="wh-title" eyebrow={b.why.eyebrow} title={b.why.title} />
+      <ol class="wh__list" role="list" data-rise>
+        {b.points.map((p, i) => (
+          <li class="wh__item">
+            <span class="wh__ic"><Icon name={pointIcons[i]} /></span>
+            <span class="wh__no">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="wh__t">{p.title}</h3>
+            <p class="wh__p">{p.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ---------- Hall details (draft) and photos to come ---------- -->
+  <section class="dt s-esp pad" aria-labelledby="dt-title">
+    <div class="wrap dt__grid">
+      <div>
+        <SectionHead id="dt-title" eyebrow={b.details.eyebrow} title={b.details.title} />
+        {show(banquet.details) && (
+          <DraftBlock confirmed={banquet.details.confirmed} lang={lang} note={banquet.details.source} class="dt__card">
+            <dl class="dt__list">
+              {banquet.details.capacity && <div><dt>{b.details.capacity}</dt><dd>{banquet.details.capacity}</dd></div>}
+              <div><dt>{b.details.catering}</dt><dd>{tr(banquet.details.catering, lang)}</dd></div>
+            </dl>
+          </DraftBlock>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Enquiry ---------- -->
+  <section id="enquiry" class="eq s-esp-deep pad" aria-labelledby="eq-title">
+    <div class="wrap eq__grid">
+      <SectionHead id="eq-title" eyebrow={b.form.eyebrow} title={b.form.title} text={show(wa) ? b.form.intro : undefined} />
+      {show(wa) ? (
+        <DraftBlock confirmed={wa.confirmed} lang={lang} note={wa.source}>
+          <form class="wf" novalidate data-wa-form data-wa={wa.value} data-template={tpl} data-note-prefix={notePrefix}
+            data-err-name={b.form.errors.name} data-err-date={b.form.errors.date} data-err-people={b.form.errors.people} data-err-occasion={b.form.errors.occasion}>
+            <div class="wf__f"><label for="b-name">{b.form.name}</label><input id="b-name" name="name" type="text" autocomplete="name" required aria-describedby="be-name" /><p class="wf__err" id="be-name" data-error-for="name" aria-live="polite"></p></div>
+            <div class="wf__f"><label for="b-occ">{b.form.occasion}</label><input id="b-occ" name="occasion" type="text" maxlength="80" required aria-describedby="be-occ" /><p class="wf__err" id="be-occ" data-error-for="occasion" aria-live="polite"></p></div>
+            <div class="wf__f wf__f--half"><label for="b-date">{b.form.date}</label><input id="b-date" name="date" type="date" required aria-describedby="be-date" /><p class="wf__err" id="be-date" data-error-for="date" aria-live="polite"></p></div>
+            <div class="wf__f wf__f--half"><label for="b-people">{b.form.people}</label><input id="b-people" name="people" type="number" min="1" max="2000" inputmode="numeric" required aria-describedby="be-people" /><p class="wf__err" id="be-people" data-error-for="people" aria-live="polite"></p></div>
+            <div class="wf__f"><label for="b-note">{b.form.note}</label><textarea id="b-note" name="note" rows="3" maxlength="300"></textarea></div>
+            <button class="btn btn--gold wf__go" type="submit" data-magnetic><Icon name="whatsapp" />{b.form.submit}</button>
+          </form>
+        </DraftBlock>
+      ) : (
+        <div class="eq__alt">
+          <p class="lede">{b.form.unavailable}</p>
+          <a class="btn btn--gold" href={site.links.directions} target="_blank" rel="noopener" data-magnetic><Icon name="pin" />{t.visit.directions}</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+  <Visit lang={lang} variant="banquet" />
+</Base>
+
+<style>
+  /* Hero: words on a solid panel, the hall in a gold arch (as on the home page) */
+  .bh { position: relative; padding-block: calc(var(--hdr-h) + 7.5rem) clamp(4rem, 9vh, 6rem); overflow: hidden; isolation: isolate; color: var(--cream-100); background: radial-gradient(ellipse 55% 45% at 28% 50%, rgb(232 150 46 / 0.14), transparent 72%), radial-gradient(ellipse at 50% 0%, #3a1d0e 0%, var(--esp-950) 62%); }
+  .bh :global(.bh__toran) { position: absolute; top: var(--hdr-h); left: 0; right: 0; z-index: 1; }
+  .bh__petals { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .bh__petals span { position: absolute; top: -40px; width: 14px; height: 10px; border-radius: 60% 0 60% 0; background: radial-gradient(circle at 30% 30%, #f4b04a, #d06a17); transform: scale(var(--s)) rotate(var(--r)); animation: petal linear infinite; animation-play-state: paused; opacity: 0.85; }
+  :global(html.deco-live) .bh__petals span { animation-play-state: running; }
+  .bh__petals span:nth-child(3n) { background: radial-gradient(circle at 30% 30%, #f7e7c1, #c08a3a); }
+  @keyframes petal { to { transform: translate3d(60px, 110vh, 0) scale(var(--s)) rotate(calc(var(--r) + 540deg)); } }
+  .bh__grid { position: relative; z-index: 2; display: grid; gap: clamp(2.75rem, 6vw, 4.5rem); align-items: center; }
+  .bh__in { display: grid; justify-items: start; gap: 1.3rem; }
+  .bh__eyebrow { --accent: var(--marigold); }
+  .bh__title { max-width: 10ch; color: var(--gold-200); }
+  .bh__lede { color: #e9dcc8; }
+  .bh__media { position: relative; justify-self: center; width: min(100%, 420px); margin: 0; padding: 18px 18px 0 0; }
+  .bh__arch { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 50% 50% 26px 26px / 40% 40% 26px 26px; background: var(--esp-800); box-shadow: 0 50px 90px -45px rgb(0 0 0 / 0.8); }
+  .bh__arch :global(picture) { position: absolute; inset: 0; display: block; }
+  .bh__arch :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; }
+  .bh__outline { position: absolute; inset: 0 0 18px 18px; border: 1px solid rgb(232 150 46 / 0.6); border-radius: 50% 50% 28px 28px / 40% 40% 28px 28px; pointer-events: none; }
+  .bh__note { position: absolute; right: 30px; bottom: 12px; padding: 0.3rem 0.75rem; border-radius: 999px; background: rgb(23 12 6 / 0.78); color: #eadfcd; font-size: 0.7rem; letter-spacing: 0.06em; }
+  @media (min-width: 960px) {
+    .bh { display: grid; align-content: center; min-height: 100svh; }
+    .bh__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+    .bh__media { justify-self: end; width: min(100%, 440px); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.motion) .bh__in > * { animation: bh-rise 1.3s var(--ease-out) both; }
+    :global(.motion) .bh__in > :nth-child(2) { animation-delay: 0.1s; }
+    :global(.motion) .bh__in > :nth-child(3) { animation-delay: 0.2s; }
+    :global(.motion) .bh__in > :nth-child(4) { animation-delay: 0.3s; }
+    :global(.motion) .bh__arch { animation: bh-rise-far 1.5s var(--ease-out) both; }
+    :global(.motion) .bh__arch :global(img) { animation: bh-settle 2.8s var(--ease-out) both; }
+    :global(.motion) .bh__outline { animation: bh-outline 1.6s var(--ease-out) 0.3s both; }
+  }
+  @keyframes bh-rise { from { transform: translateY(30px); } }
+  @keyframes bh-rise-far { from { transform: translateY(70px); } }
+  @keyframes bh-settle { from { transform: scale(1.16); } }
+  @keyframes bh-outline { from { opacity: 0; transform: translate(-18px, 18px); } }
+  @media (prefers-reduced-motion: reduce) { .bh__petals { display: none; } }
+
+  /* Occasions */
+  .oc__in { display: grid; justify-items: center; gap: 1.5rem; text-align: center; }
+  .oc__mark :global(img) { width: min(180px, 45vw); height: auto; opacity: 0.85; }
+  .oc__text { max-width: 22ch; color: var(--esp-900); }
+
+  /* Why here */
+  .wh__list { display: grid; gap: 0; margin-top: clamp(2rem, 5vw, 3.5rem); padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .wh__item { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1.25rem; padding-block: 1.6rem; border-bottom: 1px solid var(--line); }
+  .wh__ic { grid-row: span 3; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--esp-900); color: var(--gold-300); }
+  .wh__ic :global(svg) { width: 26px; height: 26px; }
+  .wh__no { font-family: var(--font-display); color: var(--marigold); filter: brightness(0.75); }
+  .wh__t { font-family: var(--font-display); font-weight: 400; font-size: var(--step-2); line-height: 1.15; }
+  :global(:lang(mr)) .wh__t { font-family: var(--font-mr); line-height: 1.35; }
+  .wh__p { color: var(--muted); }
+  @media (min-width: 900px) {
+    .wh__list { grid-template-columns: repeat(3, 1fr); border-top: 0; gap: 2.5rem; }
+    .wh__item { grid-template-columns: 1fr; padding-top: 2rem; border-bottom: 0; border-top: 1px solid var(--esp-700); }
+    .wh__ic { grid-row: auto; margin-bottom: 1rem; }
+  }
+
+  /* Details */
+  .dt__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .dt__grid :global(.dt__card) { margin-top: 2rem; padding: 1.5rem; border-radius: var(--radius); background: var(--esp-800); }
+  .dt__list { display: grid; gap: 0.75rem; }
+  .dt__list div { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 0.6rem; }
+  .dt__list dt { color: var(--gold-300); }
+  .dt__list dd { color: var(--muted); text-align: end; }
+  @media (min-width: 900px) { .dt__grid { grid-template-columns: 1.1fr 1fr; } }
+
+  /* Enquiry form (same look as the restaurant's) */
+  .eq__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+  .eq__alt { display: grid; gap: 1.4rem; justify-items: start; align-self: end; }
+  @media (min-width: 900px) { .eq__grid { grid-template-columns: 1fr 1.1fr; align-items: start; } }
+  .wf { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1rem; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radius); background: var(--esp-900); box-shadow: 0 0 0 1px var(--line); }
+  .wf__f { grid-column: 1 / -1; display: grid; gap: 0.35rem; }
+  .wf__f--half { grid-column: span 1; }
+  .wf__f label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-300); }
+  :global(:lang(mr)) .wf__f label { letter-spacing: 0.02em; font-size: 0.9rem; text-transform: none; }
+  .wf__f input, .wf__f textarea { width: 100%; min-height: 50px; padding: 0.7rem 0.9rem; border: 1px solid rgb(226 188 114 / 0.35); border-radius: 12px; background: rgb(0 0 0 / 0.2); color: var(--cream-100); font-size: 1rem; }
+  .wf__f input:focus-visible, .wf__f textarea:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 1px; border-color: var(--gold-300); }
+  .wf__f input[aria-invalid='true'] { border-color: #ffb4a2; }
+  .wf__err { font-size: var(--step--1); color: #ffcbbd; }
+  .wf__err:empty { display: none; }
+  .wf__go { grid-column: 1 / -1; justify-self: start; margin-top: 0.5rem; }
+  @media (max-width: 480px) { .wf__f--half { grid-column: 1 / -1; } }
+</style>

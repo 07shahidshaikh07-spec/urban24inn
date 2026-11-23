@@ -1,0 +1,9 @@
+---
+// Block-level fact. Unconfirmed blocks show only in preview (draft) builds, unmarked; production
+// builds leave them out. The owner checklist at /checklist/ lists what is still unconfirmed.
+import { DRAFT, type Lang } from '../lib/site';
+interface Props { confirmed?: boolean; lang: Lang; note?: string; class?: string; as?: 'div' | 'section' | 'li' | 'figure' }
+const { confirmed = false, class: cls, as: Tag = 'div' } = Astro.props;
+const visible = confirmed || DRAFT;
+---
+{visible && <Tag class={cls}><slot /></Tag>}

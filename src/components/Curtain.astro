@@ -1,0 +1,27 @@
+---
+// Page-transition overlay: lift doors with the Urban 24 Inn mark at the seam.
+// Persists across navigations; animated by src/scripts/transitions.ts.
+import Logo from './Logo.astro';
+---
+<div id="curtain" class="curtain" aria-hidden="true" transition:persist>
+  <div class="cur cur--doors" data-cur="doors">
+    <span class="cur__door cur__door--l"></span>
+    <span class="cur__door cur__door--r"></span>
+    <span class="cur__seam"></span>
+    <span class="cur__mark"><Logo variant="markLight" width={150} eager decorative /></span>
+  </div>
+  <div class="cur cur--lang" data-cur="lang"><span class="cur__line"></span></div>
+</div>
+
+<style>
+  .curtain { position: fixed; inset: 0; z-index: 140; pointer-events: none; }
+  .cur { position: absolute; inset: 0; visibility: hidden; overflow: hidden; }
+  .cur__door { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--esp-950); }
+  .cur__door--l { left: 0; background: linear-gradient(90deg, var(--esp-950), var(--esp-900)); }
+  .cur__door--r { right: 0; background: linear-gradient(270deg, var(--esp-950), var(--esp-900)); }
+  .cur__seam { position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; margin-left: -0.75px; background: var(--metal); transform-origin: center; }
+  .cur__mark { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+  .cur__mark :global(img) { width: 150px; height: auto; }
+  .cur--lang { background: var(--esp-950); }
+  .cur__line { position: absolute; top: 50%; left: 0; right: 0; height: 1.5px; background: var(--metal); transform-origin: left; }
+</style>

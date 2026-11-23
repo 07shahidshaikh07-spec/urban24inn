@@ -1,0 +1,10 @@
+---
+// Inline fact. Confirmed facts show in every build. Unconfirmed facts show only in preview (draft)
+// builds, as plain text with no marking; the owner checklist at /checklist/ lists them.
+// Production builds leave them out.
+import { DRAFT, type Lang } from '../lib/site';
+interface Props { confirmed?: boolean; lang: Lang; note?: string; as?: 'span' | 'strong' | 'p' | 'li' | 'dd' }
+const { confirmed = false, as: Tag = 'span' } = Astro.props;
+const visible = confirmed || DRAFT;
+---
+{visible && <Tag><slot /></Tag>}

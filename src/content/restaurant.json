@@ -1,0 +1,1162 @@
+{
+  "hours": {
+    "confirmed": false,
+    "label": "Restaurant opening hours",
+    "source": "Google Maps: Tue–Sun 12 noon–11 PM, Monday closed. Instagram and Facebook suggest daily.",
+    "days": [
+      {
+        "day": "mon",
+        "closed": true
+      },
+      {
+        "day": "tue",
+        "open": "12:00",
+        "close": "23:00"
+      },
+      {
+        "day": "wed",
+        "open": "12:00",
+        "close": "23:00"
+      },
+      {
+        "day": "thu",
+        "open": "12:00",
+        "close": "23:00"
+      },
+      {
+        "day": "fri",
+        "open": "12:00",
+        "close": "23:00"
+      },
+      {
+        "day": "sat",
+        "open": "12:00",
+        "close": "23:00"
+      },
+      {
+        "day": "sun",
+        "open": "12:00",
+        "close": "23:00"
+      }
+    ]
+  },
+  "priceRange": {
+    "value": {
+      "en": "About ₹400–600 per person",
+      "mr": "साधारण ₹४००–६०० प्रति व्यक्ती"
+    },
+    "confirmed": false,
+    "label": "Typical spend per person",
+    "source": "Google Maps (reported by 17 people)."
+  },
+  "parking": {
+    "value": {
+      "en": "Free parking at the building",
+      "mr": "इमारतीजवळ मोफत पार्किंग"
+    },
+    "confirmed": true,
+    "label": "Parking",
+    "source": "Many Google reviews (2022–2026), Agoda (car park on site), Skyscanner (free self-parking)."
+  },
+  "signatures": [
+    {
+      "id": "mutton-thali",
+      "name": {
+        "en": "Mutton thali",
+        "mr": "मटण थाळी"
+      },
+      "veg": false,
+      "text": {
+        "en": "The dish guests mention most in their Google reviews.",
+        "mr": "गूगल रिव्ह्यूंमध्ये पाहुण्यांनी सर्वाधिक उल्लेख केलेली थाळी."
+      }
+    },
+    {
+      "id": "pandhra-rassa",
+      "name": {
+        "en": "Pandhra rassa",
+        "mr": "पांढरा रस्सा"
+      },
+      "veg": false,
+      "text": {
+        "en": "Kolhapur's pale mutton broth, served alongside the thalis.",
+        "mr": "कोल्हापुरी पद्धतीचा पांढरा मटण रस्सा, थाळीसोबत."
+      }
+    },
+    {
+      "id": "solkadi",
+      "name": {
+        "en": "Solkadi",
+        "mr": "सोलकढी"
+      },
+      "veg": true,
+      "text": {
+        "en": "Kokum and coconut milk: the cool sip after a hot plate.",
+        "mr": "कोकम आणि नारळाचं दूध — तिखट जेवणानंतरचा थंड घोट."
+      }
+    },
+    {
+      "id": "gavran",
+      "name": {
+        "en": "Gavran chicken",
+        "mr": "गावरान चिकन"
+      },
+      "veg": false,
+      "text": {
+        "en": "Country chicken, as a fry, a kharda fry or an ukad fry.",
+        "mr": "गावरान कोंबडी — फ्राय, खर्डा फ्राय किंवा उकड फ्राय."
+      }
+    },
+    {
+      "id": "kharda",
+      "name": {
+        "en": "Kharda",
+        "mr": "खर्डा"
+      },
+      "veg": false,
+      "text": {
+        "en": "Green chilli and garlic, pounded coarse and tossed with chicken or mutton.",
+        "mr": "हिरवी मिरची आणि लसणाचा जाडसर खर्डा, चिकन किंवा मटणासोबत."
+      }
+    },
+    {
+      "id": "ravan-pithla",
+      "name": {
+        "en": "Ravan pithla and bhakri",
+        "mr": "रावण पिठलं आणि भाकरी"
+      },
+      "veg": true,
+      "text": {
+        "en": "The fiery Marathwada pithla, with jowar or bajra bhakri.",
+        "mr": "मराठवाड्याचं झणझणीत पिठलं, ज्वारी किंवा बाजरीच्या भाकरीसोबत."
+      }
+    }
+  ],
+  "thalis": {
+    "confirmed": false,
+    "label": "What comes on each thali",
+    "source": "Described in Google reviews (2022 and Nov 2026). Needs the owner's list.",
+    "items": [
+      {
+        "id": "mutton",
+        "name": {
+          "en": "Special mutton thali",
+          "mr": "स्पेशल मटण थाळी"
+        },
+        "parts": [
+          {
+            "id": "rassa",
+            "en": "Mutton rassa",
+            "mr": "मटण रस्सा",
+            "tone": "rassa"
+          },
+          {
+            "id": "dry",
+            "en": "Dry mutton",
+            "mr": "सुकं मटण",
+            "tone": "dry"
+          },
+          {
+            "id": "keema",
+            "en": "Keema",
+            "mr": "खिमा",
+            "tone": "keema"
+          },
+          {
+            "id": "egg",
+            "en": "Egg masala",
+            "mr": "अंडा मसाला",
+            "tone": "egg"
+          },
+          {
+            "id": "pandhra",
+            "en": "Pandhra rassa",
+            "mr": "पांढरा रस्सा",
+            "tone": "pandhra"
+          },
+          {
+            "id": "solkadi",
+            "en": "Solkadi",
+            "mr": "सोलकढी",
+            "tone": "sol"
+          },
+          {
+            "id": "chapati",
+            "en": "Chapati",
+            "mr": "चपाती",
+            "tone": "chapati"
+          }
+        ]
+      },
+      {
+        "id": "chicken",
+        "name": {
+          "en": "Special chicken thali",
+          "mr": "स्पेशल चिकन थाळी"
+        },
+        "parts": [
+          {
+            "id": "rassa",
+            "en": "Chicken rassa",
+            "mr": "चिकन रस्सा",
+            "tone": "rassa"
+          },
+          {
+            "id": "dry",
+            "en": "Dry chicken",
+            "mr": "सुकं चिकन",
+            "tone": "dry"
+          },
+          {
+            "id": "alni",
+            "en": "Alni",
+            "mr": "आळणी",
+            "tone": "pandhra"
+          },
+          {
+            "id": "egg",
+            "en": "Egg masala",
+            "mr": "अंडा मसाला",
+            "tone": "egg"
+          },
+          {
+            "id": "pandhra",
+            "en": "Pandhra rassa",
+            "mr": "पांढरा रस्सा",
+            "tone": "pandhra"
+          },
+          {
+            "id": "solkadi",
+            "en": "Solkadi",
+            "mr": "सोलकढी",
+            "tone": "sol"
+          },
+          {
+            "id": "chapati",
+            "en": "Chapati",
+            "mr": "चपाती",
+            "tone": "chapati"
+          }
+        ]
+      }
+    ]
+  },
+  "menu": {
+    "prices": {
+      "confirmed": false,
+      "label": "Menu prices",
+      "source": "These are the restaurant’s Swiggy delivery prices on 22 Nov 2026 (under its earlier listing name). Dine-in prices may differ; replace them from the menu card."
+    },
+    "categories": [
+      {
+        "id": "maharashtra",
+        "name": {
+          "en": "Flavours of Maharashtra",
+          "mr": "महाराष्ट्राची चव"
+        },
+        "items": [
+          {
+            "en": "Mutton Curry",
+            "mr": "मटण करी",
+            "veg": false,
+            "price": 430
+          },
+          {
+            "en": "Mutton Fry",
+            "mr": "मटण फ्राय",
+            "veg": false,
+            "price": 430
+          },
+          {
+            "en": "Mutton Kharda Fry",
+            "mr": "मटण खर्डा फ्राय",
+            "veg": false,
+            "price": 430
+          },
+          {
+            "en": "Mutton Ukad Fry",
+            "mr": "मटण उकड फ्राय",
+            "veg": false,
+            "price": 415
+          },
+          {
+            "en": "Chicken Curry",
+            "mr": "चिकन करी",
+            "veg": false,
+            "price": 350
+          },
+          {
+            "en": "Chicken Fry",
+            "mr": "चिकन फ्राय",
+            "veg": false,
+            "price": 350
+          },
+          {
+            "en": "Chicken Kharda Fry",
+            "mr": "चिकन खर्डा फ्राय",
+            "veg": false,
+            "price": 350
+          },
+          {
+            "en": "Chicken Ukad Fry",
+            "mr": "चिकन उकड फ्राय",
+            "veg": false,
+            "price": 339
+          },
+          {
+            "en": "Gavran Chicken Fry",
+            "mr": "गावरान चिकन फ्राय",
+            "veg": false,
+            "price": 430
+          },
+          {
+            "en": "Gavran Chicken Kharda Fry",
+            "mr": "गावरान चिकन खर्डा फ्राय",
+            "veg": false,
+            "price": 430
+          },
+          {
+            "en": "Gavran Chicken Ukad Fry",
+            "mr": "गावरान चिकन उकड फ्राय",
+            "veg": false,
+            "price": 415
+          }
+        ]
+      },
+      {
+        "id": "rassa",
+        "name": {
+          "en": "Rassa and soups",
+          "mr": "रस्सा आणि सूप"
+        },
+        "items": [
+          {
+            "en": "Pandhara Rassa",
+            "mr": "पांढरा रस्सा",
+            "veg": false,
+            "price": 195
+          },
+          {
+            "en": "Kala Rassa",
+            "mr": "काळा रस्सा",
+            "veg": false,
+            "price": 199
+          },
+          {
+            "en": "Mutton Alni Soup",
+            "mr": "मटण आळणी सूप",
+            "veg": false,
+            "price": 180
+          },
+          {
+            "en": "Chicken Alni Soup",
+            "mr": "चिकन आळणी सूप",
+            "veg": false,
+            "price": 180
+          },
+          {
+            "en": "Chicken Manchow Soup",
+            "mr": "चिकन मंचाऊ सूप",
+            "veg": false,
+            "price": 195
+          },
+          {
+            "en": "Chicken Hot & Sour Soup",
+            "mr": "चिकन हॉट अँड सॉर सूप",
+            "veg": false,
+            "price": 195
+          },
+          {
+            "en": "Veg Manchow Soup",
+            "mr": "व्हेज मंचाऊ सूप",
+            "veg": true,
+            "price": 169
+          },
+          {
+            "en": "Sweet Corn Soup",
+            "mr": "स्वीट कॉर्न सूप",
+            "veg": true,
+            "price": 169
+          },
+          {
+            "en": "Lemon Coriander Soup",
+            "mr": "लेमन कोरिअँडर सूप",
+            "veg": true,
+            "price": 169
+          },
+          {
+            "en": "Cream of Tomato Soup",
+            "mr": "क्रीम ऑफ टोमॅटो सूप",
+            "veg": true,
+            "price": 169
+          },
+          {
+            "en": "Cream of Mushroom Soup",
+            "mr": "क्रीम ऑफ मशरूम सूप",
+            "veg": true,
+            "price": 180
+          }
+        ]
+      },
+      {
+        "id": "veg",
+        "name": {
+          "en": "Veg mains",
+          "mr": "शाकाहारी मुख्य"
+        },
+        "items": [
+          {
+            "en": "Bharleli Vangi",
+            "mr": "भरलेली वांगी",
+            "veg": true,
+            "price": 235
+          },
+          {
+            "en": "Ravan Pithla",
+            "mr": "रावण पिठलं",
+            "veg": true,
+            "price": 249
+          },
+          {
+            "en": "Besan Pithla",
+            "mr": "बेसन पिठलं",
+            "veg": true,
+            "price": 235
+          },
+          {
+            "en": "Methi Pithla",
+            "mr": "मेथी पिठलं",
+            "veg": true,
+            "price": 249
+          },
+          {
+            "en": "Sev Bhaji",
+            "mr": "शेव भाजी",
+            "veg": true,
+            "price": 235
+          },
+          {
+            "en": "Veg Maratha",
+            "mr": "व्हेज मराठा",
+            "veg": true,
+            "price": 275
+          },
+          {
+            "en": "Great Maratha",
+            "mr": "ग्रेट मराठा",
+            "veg": true,
+            "price": 285
+          },
+          {
+            "en": "Veg Kolhapuri",
+            "mr": "व्हेज कोल्हापुरी",
+            "veg": true,
+            "price": 275
+          },
+          {
+            "en": "Veg Tawa",
+            "mr": "व्हेज तवा",
+            "veg": true,
+            "price": 275
+          },
+          {
+            "en": "Veg Kadhai",
+            "mr": "व्हेज कढाई",
+            "veg": true,
+            "price": 270
+          },
+          {
+            "en": "Veg Bhuna",
+            "mr": "व्हेज भुना",
+            "veg": true,
+            "price": 275
+          },
+          {
+            "en": "Veg Kofta",
+            "mr": "व्हेज कोफ्ता",
+            "veg": true,
+            "price": 265
+          },
+          {
+            "en": "Malai Kofta",
+            "mr": "मलाई कोफ्ता",
+            "veg": true,
+            "price": 350
+          },
+          {
+            "en": "Kaju Masala",
+            "mr": "काजू मसाला",
+            "veg": true,
+            "price": 339
+          },
+          {
+            "en": "Kaju Curry",
+            "mr": "काजू करी",
+            "veg": true,
+            "price": 299
+          },
+          {
+            "en": "Methi Matar Malai",
+            "mr": "मेथी मटर मलाई",
+            "veg": true,
+            "price": 339
+          },
+          {
+            "en": "Mushroom Masala",
+            "mr": "मशरूम मसाला",
+            "veg": true,
+            "price": 299
+          },
+          {
+            "en": "Mushroom Kadhai",
+            "mr": "मशरूम कढाई",
+            "veg": true,
+            "price": 299
+          },
+          {
+            "en": "Baingan Masala",
+            "mr": "बैंगन मसाला",
+            "veg": true,
+            "price": 245
+          }
+        ]
+      },
+      {
+        "id": "nonveg",
+        "name": {
+          "en": "Chicken, mutton and egg",
+          "mr": "चिकन, मटण आणि अंडी"
+        },
+        "items": [
+          {
+            "en": "Chicken Kolhapuri",
+            "mr": "चिकन कोल्हापुरी",
+            "veg": false,
+            "price": 479
+          },
+          {
+            "en": "Chicken Malwani",
+            "mr": "चिकन मालवणी",
+            "veg": false,
+            "price": 519
+          },
+          {
+            "en": "Chicken Angara Masala",
+            "mr": "चिकन अंगारा मसाला",
+            "veg": false,
+            "price": 519
+          },
+          {
+            "en": "Chicken Masala",
+            "mr": "चिकन मसाला",
+            "veg": false,
+            "price": 389
+          },
+          {
+            "en": "Chicken Leg Masala",
+            "mr": "चिकन लेग मसाला",
+            "veg": false,
+            "price": 375
+          },
+          {
+            "en": "Chicken Hyderabadi",
+            "mr": "चिकन हैदराबादी",
+            "veg": false,
+            "price": 479
+          },
+          {
+            "en": "Chicken Tikka Masala",
+            "mr": "चिकन टिक्का मसाला",
+            "veg": false,
+            "price": 519
+          },
+          {
+            "en": "Butter Chicken",
+            "mr": "बटर चिकन",
+            "veg": false,
+            "price": 519
+          },
+          {
+            "en": "Murgh Musallam",
+            "mr": "मुर्ग मुसल्लम",
+            "veg": false,
+            "price": 859
+          },
+          {
+            "en": "Mutton Kolhapuri",
+            "mr": "मटण कोल्हापुरी",
+            "veg": false,
+            "price": 505
+          },
+          {
+            "en": "Mutton Malwani",
+            "mr": "मटण मालवणी",
+            "veg": false,
+            "price": 845
+          },
+          {
+            "en": "Mutton Masala",
+            "mr": "मटण मसाला",
+            "veg": false,
+            "price": 505
+          },
+          {
+            "en": "Mutton Rogan Josh",
+            "mr": "मटण रोगन जोश",
+            "veg": false,
+            "price": 505
+          },
+          {
+            "en": "Mutton Hyderabadi",
+            "mr": "मटण हैदराबादी",
+            "veg": false,
+            "price": 505
+          },
+          {
+            "en": "Mutton Keema",
+            "mr": "मटण खिमा",
+            "veg": false,
+            "price": 495
+          },
+          {
+            "en": "Mutton Nalli Nihari",
+            "mr": "मटण नल्ली निहारी",
+            "veg": false,
+            "price": 520
+          },
+          {
+            "en": "Egg Curry",
+            "mr": "अंडा करी",
+            "veg": false,
+            "price": 245
+          },
+          {
+            "en": "Egg Masala",
+            "mr": "अंडा मसाला",
+            "veg": false,
+            "price": 285
+          }
+        ]
+      },
+      {
+        "id": "paneer",
+        "name": {
+          "en": "Paneer",
+          "mr": "पनीर"
+        },
+        "items": [
+          {
+            "en": "Paneer Tikka Masala",
+            "mr": "पनीर टिक्का मसाला",
+            "veg": true,
+            "price": 310
+          },
+          {
+            "en": "Paneer Butter Masala",
+            "mr": "पनीर बटर मसाला",
+            "veg": true,
+            "price": 337
+          },
+          {
+            "en": "Paneer Makhani",
+            "mr": "पनीर मखनी",
+            "veg": true,
+            "price": 365
+          },
+          {
+            "en": "Paneer Kaju Masala",
+            "mr": "पनीर काजू मसाला",
+            "veg": true,
+            "price": 389
+          },
+          {
+            "en": "Paneer Lababdar",
+            "mr": "पनीर लबाबदार",
+            "veg": true,
+            "price": 375
+          },
+          {
+            "en": "Paneer Banjara Masala",
+            "mr": "पनीर बंजारा मसाला",
+            "veg": true,
+            "price": 489
+          },
+          {
+            "en": "Paneer Patiala",
+            "mr": "पनीर पतियाळा",
+            "veg": true,
+            "price": 365
+          },
+          {
+            "en": "Paneer Kastani",
+            "mr": "पनीर कस्तानी",
+            "veg": true,
+            "price": 365
+          },
+          {
+            "en": "Paneer Sultani",
+            "mr": "पनीर सुलतानी",
+            "veg": true,
+            "price": 365
+          },
+          {
+            "en": "Paneer Kofta",
+            "mr": "पनीर कोफ्ता",
+            "veg": true,
+            "price": 375
+          },
+          {
+            "en": "Paneer Masala",
+            "mr": "पनीर मसाला",
+            "veg": true,
+            "price": 299
+          },
+          {
+            "en": "Paneer Bhurji",
+            "mr": "पनीर भुर्जी",
+            "veg": true,
+            "price": 339
+          },
+          {
+            "en": "Palak Paneer",
+            "mr": "पालक पनीर",
+            "veg": true,
+            "price": 349
+          },
+          {
+            "en": "Matar Paneer",
+            "mr": "मटर पनीर",
+            "veg": true,
+            "price": 310
+          }
+        ]
+      },
+      {
+        "id": "tandoor",
+        "name": {
+          "en": "Tandoor and kebabs",
+          "mr": "तंदूर आणि कबाब"
+        },
+        "items": [
+          {
+            "en": "Tandoori Chicken",
+            "mr": "तंदूरी चिकन",
+            "veg": false,
+            "price": 389
+          },
+          {
+            "en": "Chicken Angara Kebab",
+            "mr": "चिकन अंगारा कबाब",
+            "veg": false,
+            "price": 469
+          },
+          {
+            "en": "Chicken Tikka",
+            "mr": "चिकन टिक्का",
+            "veg": false,
+            "price": 415
+          },
+          {
+            "en": "Chicken Lasuni Tikka",
+            "mr": "चिकन लसूणी टिक्का",
+            "veg": false,
+            "price": 415
+          },
+          {
+            "en": "Chicken Malai Tikka",
+            "mr": "चिकन मलाई टिक्का",
+            "veg": false,
+            "price": 415
+          },
+          {
+            "en": "Chicken Reshmi Kebab",
+            "mr": "चिकन रेशमी कबाब",
+            "veg": false,
+            "price": 415
+          },
+          {
+            "en": "Chicken Banjara Kebab",
+            "mr": "चिकन बंजारा कबाब",
+            "veg": false,
+            "price": 455
+          },
+          {
+            "en": "Mutton Seekh Kebab",
+            "mr": "मटण सीख कबाब",
+            "veg": false,
+            "price": 469
+          },
+          {
+            "en": "Paneer Tikka",
+            "mr": "पनीर टिक्का",
+            "veg": true,
+            "price": 365
+          },
+          {
+            "en": "Paneer Pahadi",
+            "mr": "पनीर पहाडी",
+            "veg": true,
+            "price": 365
+          },
+          {
+            "en": "Paneer Malai Tikka",
+            "mr": "पनीर मलाई टिक्का",
+            "veg": true,
+            "price": 389
+          },
+          {
+            "en": "Paneer Angara Kebab",
+            "mr": "पनीर अंगारा कबाब",
+            "veg": true,
+            "price": 375
+          },
+          {
+            "en": "Paneer Hill Top",
+            "mr": "पनीर हिल टॉप",
+            "veg": true,
+            "price": 375
+          }
+        ]
+      },
+      {
+        "id": "chinese",
+        "name": {
+          "en": "Chinese starters",
+          "mr": "चायनीज स्टार्टर"
+        },
+        "items": [
+          {
+            "en": "Chicken Crispy",
+            "mr": "चिकन क्रिस्पी",
+            "veg": false,
+            "price": 289
+          },
+          {
+            "en": "Chicken 65",
+            "mr": "चिकन ६५",
+            "veg": false,
+            "price": 289
+          },
+          {
+            "en": "Chicken Chilli",
+            "mr": "चिकन चिली",
+            "veg": false,
+            "price": 289
+          },
+          {
+            "en": "Chicken Manchurian",
+            "mr": "चिकन मंचुरियन",
+            "veg": false,
+            "price": 289
+          },
+          {
+            "en": "Chicken Hot Pan",
+            "mr": "चिकन हॉट पॅन",
+            "veg": false,
+            "price": 289
+          },
+          {
+            "en": "Chicken Schezwan Fry",
+            "mr": "चिकन शेजवान फ्राय",
+            "veg": false,
+            "price": 289
+          },
+          {
+            "en": "Chicken Lollipop Dry (6 pcs)",
+            "mr": "चिकन लॉलीपॉप ड्राय (६ नग)",
+            "veg": false,
+            "price": 299
+          },
+          {
+            "en": "Chicken Lollipop Gravy (6 pcs)",
+            "mr": "चिकन लॉलीपॉप ग्रेव्ही (६ नग)",
+            "veg": false,
+            "price": 325
+          },
+          {
+            "en": "Honey Chilli Potato",
+            "mr": "हनी चिली पोटॅटो",
+            "veg": true,
+            "price": 265
+          },
+          {
+            "en": "Veg Crispy",
+            "mr": "व्हेज क्रिस्पी",
+            "veg": true,
+            "price": 229
+          },
+          {
+            "en": "Veg Manchurian",
+            "mr": "व्हेज मंचुरियन",
+            "veg": true,
+            "price": 229
+          },
+          {
+            "en": "Gobi Manchurian",
+            "mr": "गोबी मंचुरियन",
+            "veg": true,
+            "price": 215
+          },
+          {
+            "en": "Veg Schezwan Ball",
+            "mr": "व्हेज शेजवान बॉल",
+            "veg": true,
+            "price": 239
+          },
+          {
+            "en": "Paneer Chilli",
+            "mr": "पनीर चिली",
+            "veg": true,
+            "price": 299
+          },
+          {
+            "en": "Paneer Manchurian",
+            "mr": "पनीर मंचुरियन",
+            "veg": true,
+            "price": 289
+          },
+          {
+            "en": "Paneer 65",
+            "mr": "पनीर ६५",
+            "veg": true,
+            "price": 275
+          }
+        ]
+      },
+      {
+        "id": "rice",
+        "name": {
+          "en": "Biryani and rice",
+          "mr": "बिर्याणी आणि भात"
+        },
+        "items": [
+          {
+            "en": "Mutton Dum Biryani (sajuk tup)",
+            "mr": "मटण दम बिर्याणी (साजूक तूप)",
+            "veg": false,
+            "price": 279
+          },
+          {
+            "en": "Chicken Dum Biryani (sajuk tup)",
+            "mr": "चिकन दम बिर्याणी (साजूक तूप)",
+            "veg": false,
+            "price": 250
+          },
+          {
+            "en": "Chicken Tikka Biryani",
+            "mr": "चिकन टिक्का बिर्याणी",
+            "veg": false,
+            "price": 250
+          },
+          {
+            "en": "Egg Biryani",
+            "mr": "अंडा बिर्याणी",
+            "veg": false,
+            "price": 279
+          },
+          {
+            "en": "Chicken Fried Rice",
+            "mr": "चिकन फ्राईड राईस",
+            "veg": false,
+            "price": 220
+          },
+          {
+            "en": "Veg Biryani",
+            "mr": "व्हेज बिर्याणी",
+            "veg": true,
+            "price": 270
+          },
+          {
+            "en": "Kaju Matar Pulao",
+            "mr": "काजू मटर पुलाव",
+            "veg": true,
+            "price": 259
+          },
+          {
+            "en": "Dal Khichdi",
+            "mr": "दाल खिचडी",
+            "veg": true,
+            "price": 235
+          },
+          {
+            "en": "Fried Rice",
+            "mr": "फ्राईड राईस",
+            "veg": true,
+            "price": 180
+          },
+          {
+            "en": "Jeera Rice",
+            "mr": "जिरा राईस",
+            "veg": true,
+            "price": 129
+          },
+          {
+            "en": "Steam Rice",
+            "mr": "स्टीम राईस",
+            "veg": true,
+            "price": 115
+          }
+        ]
+      },
+      {
+        "id": "breads",
+        "name": {
+          "en": "Bhakri, chapati and naan",
+          "mr": "भाकरी, चपाती आणि नान"
+        },
+        "items": [
+          {
+            "en": "Jowar Bhakri",
+            "mr": "ज्वारीची भाकरी",
+            "veg": true,
+            "price": 40
+          },
+          {
+            "en": "Bajra Bhakri",
+            "mr": "बाजरीची भाकरी",
+            "veg": true,
+            "price": 35
+          },
+          {
+            "en": "Chapati",
+            "mr": "चपाती",
+            "veg": true,
+            "price": 35
+          },
+          {
+            "en": "Tup Chapati",
+            "mr": "तूप चपाती",
+            "veg": true,
+            "price": 30
+          },
+          {
+            "en": "Tandoori Roti",
+            "mr": "तंदूरी रोटी",
+            "veg": true,
+            "price": 35
+          },
+          {
+            "en": "Butter Roti",
+            "mr": "बटर रोटी",
+            "veg": true,
+            "price": 40
+          },
+          {
+            "en": "Kulcha",
+            "mr": "कुलचा",
+            "veg": true,
+            "price": 50
+          },
+          {
+            "en": "Butter Kulcha",
+            "mr": "बटर कुलचा",
+            "veg": true,
+            "price": 55
+          },
+          {
+            "en": "Naan",
+            "mr": "नान",
+            "veg": true,
+            "price": 70
+          },
+          {
+            "en": "Butter Naan",
+            "mr": "बटर नान",
+            "veg": true,
+            "price": 80
+          },
+          {
+            "en": "Butter Garlic Naan",
+            "mr": "बटर गार्लिक नान",
+            "veg": true,
+            "price": 90
+          }
+        ]
+      },
+      {
+        "id": "sides",
+        "name": {
+          "en": "Dal, salad and papad",
+          "mr": "डाळ, सॅलड आणि पापड"
+        },
+        "items": [
+          {
+            "en": "Dal Fry",
+            "mr": "दाल फ्राय",
+            "veg": true,
+            "price": 195
+          },
+          {
+            "en": "Dal Tadka",
+            "mr": "दाल तडका",
+            "veg": true,
+            "price": 220
+          },
+          {
+            "en": "Green Salad",
+            "mr": "ग्रीन सॅलड",
+            "veg": true,
+            "price": 80
+          },
+          {
+            "en": "Dahi Kanda",
+            "mr": "दही कांदा",
+            "veg": true,
+            "price": 40
+          },
+          {
+            "en": "Masala Papad",
+            "mr": "मसाला पापड",
+            "veg": true,
+            "price": 40
+          },
+          {
+            "en": "Roasted Papad",
+            "mr": "भाजलेला पापड",
+            "veg": true,
+            "price": 50
+          }
+        ]
+      },
+      {
+        "id": "drinks",
+        "name": {
+          "en": "Drinks",
+          "mr": "पेये"
+        },
+        "items": [
+          {
+            "en": "Solkadi",
+            "mr": "सोलकढी",
+            "veg": true,
+            "price": 70
+          },
+          {
+            "en": "Masala Tak",
+            "mr": "मसाला ताक",
+            "veg": true,
+            "price": 50
+          },
+          {
+            "en": "Lassi",
+            "mr": "लस्सी",
+            "veg": true,
+            "price": 70
+          },
+          {
+            "en": "Limbu Sharbat",
+            "mr": "लिंबू सरबत",
+            "veg": true,
+            "price": 55
+          },
+          {
+            "en": "Limbu Soda (masala)",
+            "mr": "लिंबू सोडा (मसाला)",
+            "veg": true,
+            "price": 70
+          }
+        ]
+      }
+    ]
+  }
+}

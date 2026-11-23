@@ -1,0 +1,26 @@
+---
+// Twinkling stars for the rooftop section (deterministic positions, CSS animation only).
+interface Props { count?: number }
+const { count = 60 } = Astro.props;
+let seed = 24;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const stars = Array.from({ length: count }, () => ({
+  x: (rand() * 100).toFixed(2),
+  y: (rand() * 70).toFixed(2),
+  s: (rand() * 1.8 + 0.6).toFixed(2),
+  d: (rand() * 4).toFixed(2),
+  t: (rand() * 3 + 2.5).toFixed(2),
+}));
+---
+<div class="sky" aria-hidden="true">
+  {stars.map((s) => <span style={`left:${s.x}%;top:${s.y}%;width:${s.s}px;height:${s.s}px;animation-delay:${s.d}s;animation-duration:${s.t}s`}></span>)}
+  <span class="sky__glow"></span>
+</div>
+
+<style>
+  .sky { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .sky span:not(.sky__glow) { position: absolute; border-radius: 50%; background: #fff6dc; box-shadow: 0 0 6px rgb(255 240 205 / 0.8); animation: twinkle 3s ease-in-out infinite; }
+  .sky__glow { position: absolute; right: 8%; top: 10%; width: 38vmin; height: 38vmin; border-radius: 50%; background: radial-gradient(circle, rgb(226 188 114 / 0.22), transparent 65%); filter: blur(6px); }
+  @keyframes twinkle { 0%, 100% { opacity: 0.25; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.15); } }
+  @media (prefers-reduced-motion: reduce) { .sky span { animation: none; opacity: 0.7; } }
+</style>

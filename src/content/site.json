@@ -1,0 +1,113 @@
+{
+  "lastChecked": "2026-11-22",
+  "property": {
+    "building": "Yashraj Arcade",
+    "address": {
+      "street": {
+        "en": "Yashraj Arcade, Gopal Nagar, Ram Nagar",
+        "mr": "यशराज आर्केड, गोपाळ नगर, राम नगर"
+      },
+      "road": {
+        "en": "Ausa–PVR Bypass, Ausa Road",
+        "mr": "औसा–पीव्हीआर बायपास, औसा रोड"
+      },
+      "city": {
+        "en": "Latur",
+        "mr": "लातूर"
+      },
+      "region": {
+        "en": "Maharashtra",
+        "mr": "महाराष्ट्र"
+      },
+      "postcode": {
+        "value": "413531",
+        "confirmed": false,
+        "label": "PIN code",
+        "source": "Google Maps and Swiggy say 413531. Agoda says 413512."
+      }
+    },
+    "geo": {
+      "lat": 18.37832,
+      "lng": 76.55376
+    }
+  },
+  "links": {
+    "directions": "https://www.google.com/maps/dir/?api=1&destination=18.37832%2C76.55376",
+    "restaurantOnGoogle": "https://maps.google.com/?cid=16170201914617204324",
+    "hotelOnGoogle": "https://maps.google.com/?cid=124228207077755225",
+    "mapEmbed": "https://www.google.com/maps?q=18.37832,76.55376&z=17&output=embed",
+    "instagram": "https://www.instagram.com/dalchinilatur/",
+    "booking": "https://bookingengine.stayflexi.com/wendv379/"
+  },
+  "contact": {
+    "phone": {
+      "value": "+919423027178",
+      "display": "094230 27178",
+      "confirmed": false,
+      "label": "Main phone number (Call buttons)",
+      "source": "Google and Facebook list 094230 27178 for the restaurant; Instagram posters print +91 83906 05555; the hotel has no public number. Confirm one number for the whole brand."
+    },
+    "whatsapp": {
+      "value": "918390605555",
+      "display": "+91 83906 05555",
+      "confirmed": false,
+      "label": "WhatsApp number (table, room and banquet enquiries)",
+      "source": "No source says which number takes WhatsApp. This is the number printed on the Instagram posters."
+    }
+  },
+  "ratings": {
+    "restaurant": {
+      "value": 3.6,
+      "count": 430,
+      "asOf": "2026-11-22",
+      "confirmed": true,
+      "label": "Restaurant Google rating (listed as Dalchini Restaurant)",
+      "source": "Google Maps, checked 22 Nov 2026"
+    },
+    "hotel": {
+      "value": 3.8,
+      "count": 5,
+      "asOf": "2026-11-22",
+      "confirmed": true,
+      "label": "Urban 24 Inn Google rating",
+      "source": "Google Maps, checked 22 Nov 2026"
+    }
+  },
+  "fssai": {
+    "value": "21525049004900",
+    "confirmed": false,
+    "label": "FSSAI licence number (footer)",
+    "source": "Shown on Dalchini's Swiggy page."
+  },
+  "brand": {
+    "name": "Urban 24 Inn",
+    "nameMr": "अर्बन 24 इन",
+    "since": null
+  },
+  "services": {
+    "dine": {
+      "status": "open",
+      "confirmed": true,
+      "label": "Restaurant",
+      "source": "Client, 22 Nov 2026"
+    },
+    "stay": {
+      "status": "open",
+      "confirmed": true,
+      "label": "Lodge (rooms)",
+      "source": "Client, 22 Nov 2026"
+    },
+    "celebrate": {
+      "status": "open",
+      "confirmed": true,
+      "label": "Banquet hall",
+      "source": "Client, 22 Nov 2026"
+    },
+    "unwind": {
+      "status": "coming-soon",
+      "confirmed": true,
+      "label": "Rooftop bar (coming soon)",
+      "source": "Client, 22 Nov 2026"
+    }
+  }
+}

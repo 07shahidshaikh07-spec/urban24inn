@@ -1,0 +1,52 @@
+---
+// Owner checklist: every unconfirmed fact, with its source. Built only in draft mode.
+import Base from '../layouts/Base.astro';
+import { DRAFT, collectUnconfirmed } from '../lib/site';
+
+export function getStaticPaths() {
+  return DRAFT ? [{ params: { checklist: 'checklist' } }] : [];
+}
+const rows = collectUnconfirmed();
+const areas = [...new Set(rows.map((r) => r.area))];
+---
+<Base lang="en" page="other" theme="home" title="Owner checklist | Urban 24 Inn" description="Facts waiting for the owner's confirmation." noindex>
+  <section class="cl s-esp-deep">
+    <div class="wrap">
+      <h1 class="cl__title">Owner checklist</h1>
+      <p class="lede cl__intro">
+        These {rows.length} facts appear on the preview with a dashed “to confirm” mark and are removed from the live build.
+        To publish one, correct it in <code>src/content/</code> and set <code>"confirmed": true</code>.
+      </p>
+      {areas.map((area) => (
+        <section class="cl__area">
+          <h2 class="cl__h2">{area}</h2>
+          <div class="cl__scroll" tabindex="0" role="region" aria-label={`${area} facts`}>
+            <table class="cl__table">
+              <thead><tr><th scope="col">Fact</th><th scope="col">What the preview shows</th><th scope="col">Where it came from</th></tr></thead>
+              <tbody>
+                {rows.filter((r) => r.area === area).map((r) => (
+                  <tr><th scope="row">{r.label}</th><td>{r.value || '—'}</td><td>{r.source}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cl { padding-block: calc(var(--hdr-h) + 3rem) var(--section); }
+  .cl__title { font-family: var(--font-display); font-weight: 400; font-size: var(--step-4); letter-spacing: -0.03em; }
+  .cl__intro { margin-block: 1rem 3rem; max-width: 60ch; }
+  .cl__intro code { font-size: 0.9em; color: var(--gold-300); }
+  .cl__area + .cl__area { margin-top: 3rem; }
+  .cl__h2 { font-size: var(--step-2); font-weight: 600; margin-bottom: 1rem; color: var(--gold-300); }
+  .cl__scroll { overflow-x: auto; }
+  .cl__table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: var(--step--1); }
+  .cl__table th, .cl__table td { text-align: start; vertical-align: top; padding: 0.75rem 1rem 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .cl__table thead th { color: var(--muted); font-weight: 600; }
+  .cl__table tbody th { font-weight: 600; width: 26%; }
+  .cl__table td { color: var(--muted); }
+</style>

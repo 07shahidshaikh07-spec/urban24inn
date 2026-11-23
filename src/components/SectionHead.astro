@@ -1,0 +1,26 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  id?: string;
+  align?: 'start' | 'center';
+  size?: 'h-1' | 'h-2' | 'h-3';
+  split?: 'lines' | 'words' | 'chars';
+  class?: string;
+}
+const { eyebrow, title, text, id, align = 'start', size = 'h-2', split = 'words', class: cls } = Astro.props;
+---
+<div class:list={['shd', align === 'center' && 'shd--center', cls]}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h2 id={id} class:list={[size, 'shd__title']} data-split={split}>{title}</h2>
+  {text && <p class="lede shd__text">{text}</p>}
+  <slot />
+</div>
+
+<style>
+  .shd { display: grid; gap: 1.1rem; justify-items: start; }
+  .shd--center { justify-items: center; text-align: center; }
+  .shd--center .shd__text { margin-inline: auto; }
+  .shd__title { max-width: 20ch; }
+</style>

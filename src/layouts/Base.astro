@@ -1,0 +1,98 @@
+---
+import '@fontsource/marcellus/400.css';
+import '@fontsource/mukta/400.css';
+import '@fontsource/mukta/600.css';
+import '@fontsource/tiro-devanagari-marathi/400.css';
+import '../styles/global.css';
+
+import { ClientRouter } from 'astro:transitions';
+import { getImage } from 'astro:assets';
+import { routes, DRAFT, type Lang, type PageKey } from '../lib/site';
+import { photos, type PhotoId } from '../lib/photos';
+import { ui } from '../i18n/ui';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ActionDock from '../components/ActionDock.astro';
+import Curtain from '../components/Curtain.astro';
+
+interface Props {
+  lang: Lang;
+  page: PageKey | 'other';
+  title: string;
+  description: string;
+  theme: 'home' | 'rooms' | 'restaurant' | 'banquet';
+  ogPhoto?: PhotoId;
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+const { lang, page, title, description, theme, ogPhoto = 'facade-front', jsonLd, noindex = false } = Astro.props;
+const t = ui[lang];
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const alternates =
+  page === 'other'
+    ? []
+    : [
+        { hreflang: 'en-IN', href: new URL(routes[page].en, site).href },
+        { hreflang: 'mr-IN', href: new URL(routes[page].mr, site).href },
+        { hreflang: 'x-default', href: new URL(routes[page].en, site).href },
+      ];
+const og = await getImage({ src: photos[ogPhoto].src, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 });
+const ogUrl = new URL(og.src, site).href;
+const themeColor = '#170c06';
+---
+<!doctype html>
+<html lang={t.htmlLang} data-theme={theme} transition:animate="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex || DRAFT ? <meta name="robots" content="noindex" /> : null}
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Urban 24 Inn" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={photos[ogPhoto].alt[lang]} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_IN' : 'mr_IN'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content={themeColor} />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline data-astro-rerun>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try { if (sessionStorage.getItem('intro-seen')) d.classList.add('intro-seen'); } catch (e) {}
+        if (window.matchMedia && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('motion');
+      })();
+    </script>
+    <slot name="head" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <ClientRouter />
+  </head>
+  <body data-page={page}>
+    <a class="skip" href="#main">{t.skip}</a>
+    <span class="progress" data-progress aria-hidden="true"></span>
+    <Header lang={lang} page={page} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <ActionDock lang={lang} page={page} />
+    <Curtain />
+    <div id="cursor" aria-hidden="true" transition:persist>
+      <div class="cursor__ring"><span class="cursor__label"></span></div>
+    </div>
+    <script>
+      import '../scripts/app';
+    </script>
+  </body>
+</html>

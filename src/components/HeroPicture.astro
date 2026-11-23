@@ -1,0 +1,16 @@
+---
+// Above-the-fold photo (the page's LCP element). The page can preload exactly the same
+// AVIF srcset with getHeroSources(), so the preload and the <img> never download twice.
+import { getHeroSources } from '../lib/hero';
+import { photos, type PhotoId } from '../lib/photos';
+import type { Lang } from '../lib/site';
+
+interface Props { id: PhotoId; lang: Lang; sizes: string; class?: string }
+const { id, lang, sizes, class: cls } = Astro.props;
+const s = await getHeroSources(id);
+---
+<picture class={cls}>
+  <source type="image/avif" srcset={s.avif} sizes={sizes} />
+  <source type="image/webp" srcset={s.webp} sizes={sizes} />
+  <img src={s.fallback} width={s.width} height={s.height} alt={photos[id].alt[lang]} loading="eager" fetchpriority="high" decoding="async" />
+</picture>

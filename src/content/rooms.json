@@ -1,0 +1,360 @@
+{
+  "checkIn": {
+    "value": "12:00",
+    "confirmed": true,
+    "label": "Check-in time",
+    "source": "Google Maps, Agoda, Traveloka and the hotel's own booking engine all say 12 noon."
+  },
+  "checkOut": {
+    "value": "10:00",
+    "confirmed": false,
+    "label": "Check-out time",
+    "source": "The booking engine and Traveloka say 10 AM. Agoda says 11 AM."
+  },
+  "frontDesk": {
+    "value": {
+      "en": "Front desk open 24 hours",
+      "mr": "फ्रंट डेस्क २४ तास सुरू"
+    },
+    "confirmed": false,
+    "label": "Front desk hours (and what the '24' in the name means)",
+    "source": "Agoda and Skyscanner list a 24-hour front desk, but Agoda also says reception is open until 11:59 PM."
+  },
+  "roomCount": {
+    "value": 18,
+    "confirmed": false,
+    "label": "Number of rooms",
+    "source": "Traveloka and Skyscanner say 18. Agoda says 1."
+  },
+  "rooms": [
+    {
+      "id": "deluxe-premium",
+      "name": {
+        "en": "Deluxe Premium Room",
+        "mr": "डिलक्स प्रीमियम रूम"
+      },
+      "guests": 3,
+      "photos": [
+        "deluxe-premium-1",
+        "deluxe-premium-2"
+      ],
+      "note": {
+        "en": "White walls, timber headboard panels with wall lamps, and a window over the bed.",
+        "mr": "पांढऱ्या भिंती, दिव्यांसह लाकडी हेडबोर्ड पॅनेल आणि बेडवर खिडकी."
+      },
+      "details": {
+        "confirmed": false,
+        "label": "Deluxe Premium Room: bed, size and in-room amenities",
+        "source": "Booking sites list a 'Deluxe Room' with one king bed (about 120 sq ft). Names don't match the hotel's own engine.",
+        "items": [
+          {
+            "en": "One king bed",
+            "mr": "एक किंग बेड"
+          },
+          {
+            "en": "About 120 sq ft",
+            "mr": "साधारण १२० चौ. फूट"
+          },
+          {
+            "en": "Toiletries, towels and bottled water",
+            "mr": "टॉयलेटरीज, टॉवेल आणि बाटलीबंद पाणी"
+          }
+        ]
+      }
+    },
+    {
+      "id": "luxury",
+      "name": {
+        "en": "Luxury Room",
+        "mr": "लक्झरी रूम"
+      },
+      "guests": 3,
+      "photos": [
+        "luxury-3",
+        "luxury-1",
+        "luxury-2",
+        "luxury-4"
+      ],
+      "note": {
+        "en": "A TV on a timber wall, a long work desk, a full-length mirror and a window looking out at trees.",
+        "mr": "लाकडी भिंतीवर टीव्ही, लांब वर्क डेस्क, पूर्ण उंचीचा आरसा आणि झाडांकडे पाहणारी खिडकी."
+      },
+      "details": {
+        "confirmed": false,
+        "label": "Luxury Room: bed, size and in-room amenities",
+        "source": "Booking sites list a 'Superior Room' with one king bed (15.8–16 m²). Names don't match the hotel's own engine.",
+        "items": [
+          {
+            "en": "One king bed",
+            "mr": "एक किंग बेड"
+          },
+          {
+            "en": "About 16 m²",
+            "mr": "साधारण १६ चौ. मी."
+          },
+          {
+            "en": "Toiletries, towels and bottled water",
+            "mr": "टॉयलेटरीज, टॉवेल आणि बाटलीबंद पाणी"
+          }
+        ]
+      }
+    }
+  ],
+  "plans": [
+    {
+      "code": "Standard",
+      "name": {
+        "en": "Standard plan",
+        "mr": "स्टँडर्ड प्लॅन"
+      },
+      "text": {
+        "en": "The base rate. Ask what it includes.",
+        "mr": "मूळ दर. त्यात काय समाविष्ट आहे ते विचारा."
+      }
+    },
+    {
+      "code": "CP",
+      "name": {
+        "en": "With breakfast",
+        "mr": "नाश्त्यासह"
+      },
+      "text": {
+        "en": "Room and breakfast.",
+        "mr": "खोली आणि नाश्ता."
+      }
+    },
+    {
+      "code": "MAP",
+      "name": {
+        "en": "Breakfast and one meal",
+        "mr": "नाश्ता आणि एक जेवण"
+      },
+      "text": {
+        "en": "Room, breakfast and lunch or dinner.",
+        "mr": "खोली, नाश्ता आणि दुपारचं किंवा रात्रीचं जेवण."
+      }
+    },
+    {
+      "code": "AP",
+      "name": {
+        "en": "All meals",
+        "mr": "सर्व जेवण"
+      },
+      "text": {
+        "en": "Room, breakfast, lunch and dinner.",
+        "mr": "खोली, नाश्ता, दुपारचं आणि रात्रीचं जेवण."
+      }
+    }
+  ],
+  "amenities": [
+    {
+      "id": "wifi",
+      "en": "Free Wi-Fi",
+      "mr": "मोफत वाय-फाय",
+      "confirmed": true,
+      "label": "Free Wi-Fi",
+      "source": "Agoda, Booking.com and Traveloka"
+    },
+    {
+      "id": "ac",
+      "en": "Air-conditioned rooms",
+      "mr": "एसी खोल्या",
+      "confirmed": true,
+      "label": "Air conditioning",
+      "source": "Agoda, Booking.com, Traveloka and the hotel's room photos"
+    },
+    {
+      "id": "parking",
+      "en": "Parking at the building",
+      "mr": "इमारतीजवळ पार्किंग",
+      "confirmed": true,
+      "label": "Parking",
+      "source": "Agoda (car park on site) and Skyscanner (free self-parking)"
+    },
+    {
+      "id": "restaurant",
+      "en": "Restaurant on the ground floor",
+      "mr": "तळमजल्यावर रेस्टॉरंट",
+      "confirmed": true,
+      "label": "Restaurant",
+      "source": "The building itself"
+    },
+    {
+      "id": "lift",
+      "en": "Lift",
+      "mr": "लिफ्ट",
+      "confirmed": false,
+      "label": "Lift",
+      "source": "Agoda only"
+    },
+    {
+      "id": "housekeeping",
+      "en": "Daily housekeeping",
+      "mr": "दररोज हाउसकीपिंग",
+      "confirmed": false,
+      "label": "Daily housekeeping",
+      "source": "Agoda only"
+    },
+    {
+      "id": "laundry",
+      "en": "Laundry service",
+      "mr": "लॉन्ड्री सेवा",
+      "confirmed": false,
+      "label": "Laundry service",
+      "source": "Agoda only"
+    },
+    {
+      "id": "tv",
+      "en": "TV in the room",
+      "mr": "खोलीत टीव्ही",
+      "confirmed": false,
+      "label": "TV in every room",
+      "source": "Agoda says 'some rooms'; TVs appear in the Luxury Room photos"
+    },
+    {
+      "id": "desk",
+      "en": "Work desk",
+      "mr": "वर्क डेस्क",
+      "confirmed": false,
+      "label": "Work desk",
+      "source": "Agoda; desks appear in the Luxury Room photos"
+    },
+    {
+      "id": "transfer",
+      "en": "Airport transfer on request (paid)",
+      "mr": "विनंतीवर विमानतळ ट्रान्सफर (शुल्क)",
+      "confirmed": false,
+      "label": "Airport transfer",
+      "source": "Agoda only"
+    }
+  ],
+  "landmarks": {
+    "confirmed": false,
+    "label": "Distances to landmarks",
+    "source": "MakeMyTrip (railway station 8.1 km by road) and Agoda (Ganj Golai 5 km). Owner to confirm and add the bus stand.",
+    "items": [
+      {
+        "en": "Latur railway station",
+        "mr": "लातूर रेल्वे स्टेशन",
+        "distance": {
+          "en": "about 8 km",
+          "mr": "साधारण ८ किमी"
+        }
+      },
+      {
+        "en": "Ganj Golai, the old city centre",
+        "mr": "गंज गोलाई, जुनं शहर",
+        "distance": {
+          "en": "about 5 km",
+          "mr": "साधारण ५ किमी"
+        }
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": {
+        "en": "What time is check-in?",
+        "mr": "चेक-इन किती वाजता?"
+      },
+      "a": {
+        "en": "From 12 noon.",
+        "mr": "दुपारी १२ पासून."
+      },
+      "confirmed": true,
+      "label": "FAQ: check-in",
+      "source": "All listings agree"
+    },
+    {
+      "q": {
+        "en": "What time is check-out?",
+        "mr": "चेक-आउट किती वाजता?"
+      },
+      "a": {
+        "en": "By 10 AM.",
+        "mr": "सकाळी १० पर्यंत."
+      },
+      "confirmed": false,
+      "label": "FAQ: check-out",
+      "source": "Booking engine says 10 AM; Agoda says 11 AM"
+    },
+    {
+      "q": {
+        "en": "Can I book breakfast or meals with the room?",
+        "mr": "खोलीसोबत नाश्ता किंवा जेवण बुक करता येईल का?"
+      },
+      "a": {
+        "en": "Yes. When you book direct you can choose a plan with breakfast (CP), breakfast and one meal (MAP) or all meals (AP).",
+        "mr": "हो. थेट बुकिंग करताना नाश्त्यासह (CP), नाश्ता आणि एक जेवण (MAP) किंवा सर्व जेवण (AP) असा प्लॅन निवडता येतो."
+      },
+      "confirmed": true,
+      "label": "FAQ: meal plans",
+      "source": "The hotel's booking engine"
+    },
+    {
+      "q": {
+        "en": "How many people can stay in a room?",
+        "mr": "एका खोलीत किती जण राहू शकतात?"
+      },
+      "a": {
+        "en": "Up to three guests in both room types.",
+        "mr": "दोन्ही प्रकारच्या खोल्यांत तीन जणांपर्यंत."
+      },
+      "confirmed": true,
+      "label": "FAQ: room occupancy",
+      "source": "The hotel's booking engine"
+    },
+    {
+      "q": {
+        "en": "How are children counted?",
+        "mr": "मुलांची गणना कशी होते?"
+      },
+      "a": {
+        "en": "The booking engine asks for children aged 7 to 12 and infants up to 6 separately.",
+        "mr": "बुकिंग करताना ७ ते १२ वयोगटातील मुले आणि ६ वर्षांपर्यंतची बाळे वेगळी नोंदवली जातात."
+      },
+      "confirmed": true,
+      "label": "FAQ: children",
+      "source": "The hotel's booking engine"
+    },
+    {
+      "q": {
+        "en": "Is there parking?",
+        "mr": "पार्किंग आहे का?"
+      },
+      "a": {
+        "en": "Yes, at the building.",
+        "mr": "हो, इमारतीजवळच."
+      },
+      "confirmed": true,
+      "label": "FAQ: parking",
+      "source": "Agoda, Skyscanner and many restaurant reviews"
+    },
+    {
+      "q": {
+        "en": "Which ID do I need?",
+        "mr": "कोणतं ओळखपत्र लागेल?"
+      },
+      "a": {
+        "en": "A government photo ID for every adult guest.",
+        "mr": "प्रत्येक प्रौढ पाहुण्यासाठी सरकारी फोटो ओळखपत्र."
+      },
+      "confirmed": false,
+      "label": "FAQ: ID policy",
+      "source": "Not published. This is the usual rule; the owner must confirm, including any local-ID or couples policy."
+    },
+    {
+      "q": {
+        "en": "Are pets allowed?",
+        "mr": "पाळीव प्राणी चालतात का?"
+      },
+      "a": {
+        "en": "Yes, by arrangement.",
+        "mr": "हो, आधी कळवल्यास."
+      },
+      "confirmed": false,
+      "label": "FAQ: pets",
+      "source": "Agoda lists 'pets allowed'. Nothing else confirms it."
+    }
+  ]
+}

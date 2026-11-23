@@ -1,0 +1,38 @@
+---
+import { site, show, waLink, type Lang } from '../lib/site';
+import { ui } from '../i18n/ui';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].cta;
+const wa = site.contact.whatsapp;
+---
+<section class="cta s-esp-deep" aria-labelledby="cta-title">
+  <div class="cta__mark" aria-hidden="true" data-parallax="18"><Logo variant="markLight" width={520} decorative /></div>
+  <div class="wrap cta__in">
+    <h2 id="cta-title" class="h-1 cta__title" data-split="words">{t.title}</h2>
+    <p class="lede">{show(wa) ? t.text : t.textNoWa}</p>
+    <div class="cta__btns" data-rise>
+      <a class="btn btn--gold" href={site.links.booking} target="_blank" rel="noopener" data-magnetic>{t.book}<Icon name="arrowRight" /></a>
+      {show(wa) ? (
+        <a class="btn btn--ghost" href={waLink(wa.value, t.whatsappText)} target="_blank" rel="noopener">
+          <Icon name="whatsapp" />{t.whatsapp}
+        </a>
+      ) : (
+        <a class="btn btn--ghost" href={site.links.directions} target="_blank" rel="noopener"><Icon name="pin" />{ui[lang].visit.directions}</a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { position: relative; overflow: hidden; padding-block: clamp(5rem, 12vw, 9rem); text-align: center; border-top: 1px solid var(--line); }
+  .cta__mark { position: absolute; left: 50%; top: 50%; width: min(520px, 90vw); translate: -50% -50%; opacity: 0.07; pointer-events: none; }
+  .cta__mark :global(img) { width: 100%; height: auto; }
+  .cta__in { position: relative; display: grid; justify-items: center; gap: 1.4rem; }
+  .cta__title { max-width: 18ch; color: var(--gold-200); }
+  .cta__in .lede { margin-inline: auto; }
+  .cta__btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 0.5rem; }
+</style>

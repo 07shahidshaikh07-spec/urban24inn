@@ -1,0 +1,220 @@
+---
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import SectionHead from '../SectionHead.astro';
+import Mark from '../Mark.astro';
+import Icon from '../Icon.astro';
+import Thali from '../Thali.astro';
+import Tbc from '../Tbc.astro';
+import DraftBlock from '../DraftBlock.astro';
+import Visit from '../Visit.astro';
+import { restaurant, site, show, tr, rupees, type Lang } from '../../lib/site';
+import { photos } from '../../lib/photos';
+import { getHeroSources, PAGE_HERO_SIZES } from '../../lib/hero';
+import { graph, restaurantLd } from '../../lib/schema';
+import { ui } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const d = t.restaurant;
+const base = Astro.site!;
+const img = await getImage({ src: photos['dalchini-dining'].src, width: 1200, format: 'jpg' });
+const jsonLd = graph(restaurantLd(base, new URL(img.src, base).href));
+const hero = await getHeroSources('dalchini-dining');
+const wa = site.contact.whatsapp;
+const prices = restaurant.menu.prices;
+const tpl = d.table.message({ people: '{people}', date: '{date}', time: '{time}', name: '{name}', note: '{note}', occasion: '' });
+const notePrefix = lang === 'en' ? ' Note: ' : ' सूचना: ';
+---
+<Base lang={lang} page="restaurant" theme="restaurant" title={t.meta.restaurant.title} description={t.meta.restaurant.description} ogPhoto="dalchini-dining" jsonLd={jsonLd}>
+  <link slot="head" rel="preload" as="image" type="image/avif" imagesrcset={hero.avif} imagesizes={PAGE_HERO_SIZES} fetchpriority="high" />
+  <PageHero lang={lang} photo="dalchini-dining" eyebrow={d.hero.eyebrow} title={d.hero.title} lede={d.hero.lede} tone="cinnamon" position="88% center">
+    <Fragment slot="ctas">
+      <a class="btn btn--gold" href="#menu" data-magnetic>{d.hero.cta1}<Icon name="arrowRight" /></a>
+      <a class="btn btn--ghost rs__ghost" href="#table">{d.hero.cta2}</a>
+    </Fragment>
+  </PageHero>
+
+  <!-- ---------- What to order ---------- -->
+  <section class="sg s-cream grain pad" aria-labelledby="sg-title">
+    <div class="wrap">
+      <SectionHead id="sg-title" eyebrow={d.signatures.eyebrow} title={d.signatures.title} text={d.signatures.intro} />
+      <ul class="sg__list" role="list">
+        {restaurant.signatures.map((s, i) => (
+          <li class="sg__item" data-sig>
+            <span class="sg__no">{String(i + 1).padStart(2, '0')}</span>
+            <span class="sg__mr" lang="mr" data-sig-mr>{s.name.mr}</span>
+            <span class="sg__meta">
+              <Mark veg={s.veg} label={s.veg ? d.menu.vegMark : d.menu.nonvegMark} />
+              {lang === 'en' && <span class="sg__en">{s.name.en}</span>}
+            </span>
+            <span class="sg__text">{tr(s.text, lang)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ---------- The thali (draft until the owner lists the contents) ---------- -->
+  {show(restaurant.thalis) && (
+    <section class="th s-esp pad" aria-labelledby="th-title">
+      <div class="wrap">
+        <SectionHead id="th-title" eyebrow={d.thali.eyebrow} title={d.thali.title} text={d.thali.intro} />
+        <div class="th__body">
+          <DraftBlock confirmed={restaurant.thalis.confirmed} lang={lang} note={restaurant.thalis.source}>
+            <Thali lang={lang} />
+          </DraftBlock>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ---------- Menu ---------- -->
+  <section id="menu" class="mn s-paper grain pad" data-menu aria-labelledby="mn-title">
+    <div class="wrap">
+      <div class="mn__head">
+        <SectionHead id="mn-title" eyebrow={d.menu.eyebrow} title={d.menu.title} size="h-1" split="chars" />
+        <div class="mn__intro">
+          <p>{d.menu.intro}</p>
+        </div>
+      </div>
+      <div class="mn__controls">
+        <div class="mn__diet" role="group" aria-label={d.menu.filterLabel} data-diet-group hidden>
+          <span class="mn__ind" data-diet-ind aria-hidden="true"></span>
+          <button type="button" data-diet="all" aria-pressed="true">{d.menu.all}</button>
+          <button type="button" data-diet="veg" aria-pressed="false"><Mark veg={true} label="" />{d.menu.veg}</button>
+          <button type="button" data-diet="nonveg" aria-pressed="false"><Mark veg={false} label="" />{d.menu.nonveg}</button>
+        </div>
+        <div class="mn__tabs" data-tablist aria-label={d.menu.categoriesLabel} hidden data-lenis-prevent>
+          {restaurant.menu.categories.map((c) => (
+            <button type="button" class="mn__tab" id={`tab-${c.id}`} data-tab>
+              <span>{tr(c.name, lang)}</span><span class="mn__count" data-count>{c.items.length}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div class="mn__panels">
+        {restaurant.menu.categories.map((c) => (
+          <section class="mn__panel" id={`panel-${c.id}`} data-panel aria-label={tr(c.name, lang)}>
+            <h3 class="menu__cat">{tr(c.name, lang)}</h3>
+            <ul class="mn__list" role="list">
+              {c.items.map((it) => (
+                <li class="mi" data-veg={String(it.veg)}>
+                  <span class:list={['mk', it.veg ? 'mk--veg' : 'mk--nv']} role="img" aria-label={it.veg ? d.menu.vegMark : d.menu.nonvegMark}></span>
+                  <span class="mi__name">
+                    <span class="mi__primary" lang={lang === 'mr' ? 'mr' : undefined}>{lang === 'mr' ? it.mr : it.en}</span>
+                    <span class="mi__secondary" lang={lang === 'en' ? 'mr' : undefined}>{lang === 'mr' ? it.en : it.mr}</span>
+                  </span>
+                  {show(prices) && <span class="mi__price">{rupees(it.price, lang)}</span>}
+                </li>
+              ))}
+            </ul>
+            <p class="mn__empty" data-empty hidden>{d.menu.empty}</p>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Table enquiry ---------- -->
+  <section id="table" class="tb s-esp-deep pad" aria-labelledby="tb-title">
+    <div class="wrap tb__grid">
+      <SectionHead id="tb-title" eyebrow={d.table.eyebrow} title={d.table.title} text={show(wa) ? d.table.intro : undefined} />
+      {show(wa) ? (
+        <DraftBlock confirmed={wa.confirmed} lang={lang} note={wa.source}>
+          <form class="wf" novalidate data-wa-form data-wa={wa.value} data-template={tpl} data-note-prefix={notePrefix}
+            data-err-name={d.table.errors.name} data-err-date={d.table.errors.date} data-err-time={d.table.errors.time} data-err-people={d.table.errors.people}>
+            <div class="wf__f"><label for="t-name">{d.table.name}</label><input id="t-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name" /><p class="wf__err" id="e-name" data-error-for="name" aria-live="polite"></p></div>
+            <div class="wf__f wf__f--half"><label for="t-date">{d.table.date}</label><input id="t-date" name="date" type="date" required aria-describedby="e-date" /><p class="wf__err" id="e-date" data-error-for="date" aria-live="polite"></p></div>
+            <div class="wf__f wf__f--half"><label for="t-time">{d.table.time}</label><input id="t-time" name="time" type="time" required aria-describedby="e-time" /><p class="wf__err" id="e-time" data-error-for="time" aria-live="polite"></p></div>
+            <div class="wf__f"><label for="t-people">{d.table.people}</label><input id="t-people" name="people" type="number" min="1" max="60" inputmode="numeric" required aria-describedby="e-people" /><p class="wf__err" id="e-people" data-error-for="people" aria-live="polite"></p></div>
+            <div class="wf__f"><label for="t-note">{d.table.note}</label><textarea id="t-note" name="note" rows="3" maxlength="300"></textarea></div>
+            <button class="btn btn--gold wf__go" type="submit" data-magnetic><Icon name="whatsapp" />{d.table.submit}</button>
+          </form>
+        </DraftBlock>
+      ) : (
+        <div class="tb__alt">
+          <p class="lede">{d.table.unavailable}</p>
+          <a class="btn btn--gold" href={site.links.directions} target="_blank" rel="noopener" data-magnetic><Icon name="pin" />{t.visit.directions}</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Visit lang={lang} variant="restaurant" />
+</Base>
+
+<style>
+  .rs__ghost { --fg: var(--cream-100); --bg: var(--esp-900); }
+
+  /* Signatures */
+  .sg__list { margin-top: clamp(2.5rem, 6vw, 4.5rem); padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .sg__item { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1.25rem; padding-block: clamp(1.2rem, 3vw, 1.9rem); border-bottom: 1px solid var(--line); }
+  .sg__item::after { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--metal); transform: scaleX(0); transform-origin: left; transition: transform 0.9s var(--ease-out); }
+  .sg__item:hover::after { transform: scaleX(1); }
+  .sg__no { grid-row: span 3; font-family: var(--font-display); color: var(--cinnamon); padding-top: 0.6rem; }
+  .sg__mr { font-family: var(--font-mr); font-size: clamp(2.2rem, 6.5vw, 4.8rem); line-height: 1.25; color: var(--esp-900); will-change: transform; }
+  .sg__meta { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); font-size: var(--step-1); color: var(--cinnamon); }
+  .sg__text { max-width: 46ch; color: var(--muted); }
+  @media (min-width: 900px) {
+    .sg__item { grid-template-columns: auto minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; }
+    .sg__no { grid-row: span 2; padding-top: 0; }
+    .sg__mr { grid-row: span 2; }
+  }
+
+  /* Thali */
+  .th__body { margin-top: clamp(2rem, 5vw, 3.5rem); }
+
+  /* Menu */
+  .mn__head { display: grid; gap: 1.5rem; margin-bottom: clamp(2rem, 5vw, 3rem); }
+  .mn__head :global(.shd__title) { color: var(--cinnamon); }
+  .mn__intro { display: grid; gap: 0.75rem; max-width: 52ch; align-self: end; }
+  @media (min-width: 900px) { .mn__head { grid-template-columns: 1fr 1fr; } }
+  :global(body:has(.hdr:not(.hdr--hidden))) .mn__controls { top: 64px; }
+  .mn__controls { position: sticky; top: 0; z-index: 5; display: grid; gap: 0.75rem; padding: 0.8rem var(--gutter); margin-inline: calc(var(--gutter) * -1); background: var(--cream-50); border-bottom: 1px solid var(--line); transition: top 0.5s var(--ease-out); }
+  .mn__diet { position: relative; display: inline-flex; justify-self: start; padding: 4px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--esp-900); }
+  .mn__diet button { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.45rem; min-height: 40px; padding: 0 1rem; border: 0; border-radius: 999px; background: none; font-weight: 600; color: var(--esp-900); transition: color 0.4s; }
+  .mn__diet button[aria-pressed='true'] { color: var(--cream-50); }
+  .mn__ind { position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 0; width: 0; border-radius: 999px; background: var(--esp-900); }
+  .mn__tabs { display: flex; gap: 0.4rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .mn__tabs::-webkit-scrollbar { display: none; }
+  .mn__tab { flex: none; display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 1rem; border: 1px solid var(--line); border-radius: 999px; background: none; font-weight: 600; color: var(--esp-900); white-space: nowrap; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+  .mn__tab[aria-selected='true'] { background: var(--cinnamon); color: var(--cream-50); border-color: var(--cinnamon); }
+  .mn__tab:global(.is-empty) { opacity: 0.5; }
+  .mn__count { font-size: 0.75rem; font-weight: 600; min-width: 1.6em; padding: 0 0.4em; border-radius: 999px; background: rgb(34 17 10 / 0.08); text-align: center; }
+  .mn__tab[aria-selected='true'] .mn__count { background: rgb(255 251 243 / 0.22); }
+  .mn__panels { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+  .mn__panel { content-visibility: auto; contain-intrinsic-size: auto 880px; }
+  .mn__panel + .mn__panel { margin-top: 3rem; }
+  :global(.mn.is-tabbed) .mn__panel + .mn__panel, :global(.is-tabbed) .mn__panel + .mn__panel { margin-top: 0; }
+  .menu__cat { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 1.2rem + 2vw, 3.2rem); line-height: 1.1; color: var(--esp-900); margin-bottom: 1rem; }
+  :global(:lang(mr)) .menu__cat { font-family: var(--font-mr); line-height: 1.35; }
+  .mn__list { display: grid; gap: 0 3rem; padding: 0; margin: 0; list-style: none; }
+  @media (min-width: 900px) { .mn__list { grid-template-columns: 1fr 1fr; } }
+  .mi { display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: baseline; padding-block: 0.85rem; border-bottom: 1px dashed rgb(34 17 10 / 0.2); }
+  .mi .mk { align-self: center; }
+  .mi__name { display: grid; }
+  .mi__primary { font-weight: 600; }
+  .mi__secondary { font-size: var(--step--1); color: var(--muted); }
+  .mi__secondary:lang(mr) { font-family: var(--font-mr); }
+  .mi__price { font-family: var(--font-display); font-size: var(--step-0); white-space: nowrap; color: var(--cinnamon); }
+  .mn__empty { padding: 2rem 0; color: var(--muted); }
+
+  /* Table form */
+  .tb__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+  .tb__alt { display: grid; gap: 1.4rem; justify-items: start; align-self: end; }
+  @media (min-width: 900px) { .tb__grid { grid-template-columns: 1fr 1.1fr; align-items: start; } }
+  .wf { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1rem; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radius); background: var(--esp-900); box-shadow: 0 0 0 1px var(--line); }
+  .wf__f { grid-column: 1 / -1; display: grid; gap: 0.35rem; }
+  .wf__f--half { grid-column: span 1; }
+  .wf__f label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-300); }
+  :global(:lang(mr)) .wf__f label { letter-spacing: 0.02em; font-size: 0.9rem; text-transform: none; }
+  .wf__f input, .wf__f textarea { width: 100%; min-height: 50px; padding: 0.7rem 0.9rem; border: 1px solid rgb(226 188 114 / 0.35); border-radius: 12px; background: rgb(0 0 0 / 0.2); color: var(--cream-100); font-size: 1rem; }
+  .wf__f input:focus-visible, .wf__f textarea:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 1px; border-color: var(--gold-300); }
+  .wf__f input[aria-invalid='true'] { border-color: #ffb4a2; }
+  .wf__err { font-size: var(--step--1); color: #ffcbbd; }
+  .wf__err:empty { display: none; }
+  .wf__go { grid-column: 1 / -1; justify-self: start; margin-top: 0.5rem; }
+</style>

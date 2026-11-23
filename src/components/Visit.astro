@@ -1,0 +1,118 @@
+---
+import { site, restaurant, rooms, show, tr, num, fmtTime, DAYS, fullAddress, waLink, type Lang } from '../lib/site';
+import { ui } from '../i18n/ui';
+import Icon from './Icon.astro';
+import Tbc from './Tbc.astro';
+import DraftBlock from './DraftBlock.astro';
+import SectionHead from './SectionHead.astro';
+import Pic from './Pic.astro';
+
+interface Props { lang: Lang; variant: 'home' | 'rooms' | 'restaurant' | 'banquet'; surface?: string }
+const { lang, variant, surface = 's-cream' } = Astro.props;
+const t = ui[lang];
+const a = site.property.address;
+const c = site.contact;
+const hours = restaurant.hours;
+const r = site.ratings.restaurant;
+const asOf = new Intl.DateTimeFormat(lang === 'en' ? 'en-IN' : 'mr-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(r.asOf));
+---
+<section id="visit" class:list={['visit', surface]} aria-labelledby="visit-title">
+  <div class="wrap pad">
+    <SectionHead id="visit-title" eyebrow={t.visit.eyebrow} title={t.visit.title} />
+    <div class="visit__grid">
+      <div class="visit__card">
+        <p class="visit__label">{t.visit.addressLabel}</p>
+        <address class="visit__addr">
+          <span>{tr(a.street, lang)}</span>
+          <span>{tr(a.road, lang)}</span>
+          <span>{tr(a.city, lang)}, {tr(a.region, lang)} <Tbc confirmed={a.postcode.confirmed} lang={lang} note={a.postcode.source}>{num(a.postcode.value, lang)}</Tbc></span>
+        </address>
+        {lang === 'en' && <p class="visit__mr" lang="mr">{fullAddress('mr', false)}</p>}
+        <a class="btn btn--dark" href={site.links.directions} target="_blank" rel="noopener" data-magnetic><Icon name="pin" />{t.visit.directions}</a>
+        <ul class="visit__list" role="list">
+          {show(c.phone) && <li><Icon name="phone" /><a href={`tel:${c.phone.value}`}><Tbc confirmed={c.phone.confirmed} lang={lang} note={c.phone.source}>{t.visit.call}: {num(c.phone.display, lang)}</Tbc></a></li>}
+          {show(c.whatsapp) && <li><Icon name="whatsapp" /><a href={waLink(c.whatsapp.value, t.cta.whatsappText)} target="_blank" rel="noopener"><Tbc confirmed={c.whatsapp.confirmed} lang={lang} note={c.whatsapp.source}>{t.visit.whatsapp}</Tbc></a></li>}
+          <li><Icon name="car" /><span>{t.visit.parking}: {tr(restaurant.parking.value, lang)}</span></li>
+          <li><Icon name="instagram" /><a href={site.links.instagram} target="_blank" rel="noopener">{t.visit.instagram}</a></li>
+          <li><Icon name="pin" /><a href={variant === 'restaurant' ? site.links.restaurantOnGoogle : site.links.hotelOnGoogle} target="_blank" rel="noopener">{variant === 'restaurant' ? t.visit.restaurantOnGoogle : t.visit.onGoogle}</a></li>
+        </ul>
+      </div>
+
+      <div class="visit__map" data-map>
+        <div class="visit__map-face">
+          <Pic id="facade-front" lang={lang} sizes="(min-width: 960px) 56vw, 100vw" widths={[480, 800, 1200]} position="center 30%" />
+          <div class="visit__chip">
+          <svg class="visit__pin" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 60S12 40 12 24a20 20 0 0 1 40 0c0 16-20 36-20 36z" fill="#c08a3a"/><circle cx="32" cy="24" r="7" fill="#22110a"/></svg>
+          <p class="visit__coords">{num('18.3783° N, 76.5538° E', lang)}</p>
+          <button class="btn btn--ghost" type="button" data-map-load data-src={site.links.mapEmbed} data-title={t.visit.mapTitle}>{t.visit.loadMap}</button>
+          <p class="small">{t.visit.mapNote}</p>
+          </div>
+        </div>
+      </div>
+
+      {(variant === 'restaurant' || variant === 'home') && show(hours) && (
+        <DraftBlock confirmed={hours.confirmed} lang={lang} note={hours.source} class="visit__card visit__hours-card">
+          <p class="visit__label">{t.visit.hoursTitle}</p>
+          <table class="visit__hours">
+            <tbody>
+              {hours.days.map((d) => (
+                <tr><th scope="row">{tr(DAYS[d.day], lang)}</th><td>{d.closed ? t.visit.closed : `${fmtTime(d.open!, lang)} – ${fmtTime(d.close!, lang)}`}</td></tr>
+              ))}
+            </tbody>
+          </table>
+          {variant === 'restaurant' && (
+            <p class="visit__rating small">{t.restaurant.rating({ value: num(r.value, lang), count: num(r.count, lang), date: asOf })} <a class="link" href={site.links.restaurantOnGoogle} target="_blank" rel="noopener">{t.restaurant.readReviews}</a></p>
+          )}
+        </DraftBlock>
+      )}
+
+      {variant === 'rooms' && show(rooms.landmarks) && (
+        <DraftBlock confirmed={rooms.landmarks.confirmed} lang={lang} note={rooms.landmarks.source} class="visit__card">
+          <ul class="visit__marks" role="list">
+            {rooms.landmarks.items.map((l) => <li><span>{tr(l, lang)}</span><span class="small">{tr(l.distance, lang)}</span></li>)}
+          </ul>
+        </DraftBlock>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Last section on every page: render it only when it nears the screen. This keeps the first paint
+     light and means English pages fetch the Marathi font (for the address) only when it is needed. */
+  .visit { content-visibility: auto; contain-intrinsic-size: auto 1200px; }
+  .visit__grid { display: grid; gap: 1.25rem; margin-top: clamp(2rem, 5vw, 3.5rem); }
+  .visit__grid > :global(*) { min-width: 0; }
+  .visit__card, .visit__grid :global(.visit__card) { display: grid; gap: 1rem; align-content: start; padding: clamp(1.4rem, 3vw, 2.2rem); border-radius: var(--radius); background: var(--cream-50); box-shadow: 0 0 0 1px var(--line); }
+  .visit__label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-700); }
+  :global(:lang(mr)) .visit__label { letter-spacing: 0.03em; font-size: 0.9rem; text-transform: none; }
+  .visit__addr { display: grid; font-style: normal; font-family: var(--font-display); font-size: var(--step-1); line-height: 1.4; color: var(--esp-900); }
+  :global(:lang(mr)) .visit__addr { font-family: var(--font-mr); }
+  .visit__mr { font-family: var(--font-mr); color: var(--muted); line-height: 1.75; }
+  .visit__card .btn { justify-self: start; }
+  .visit__list { display: grid; gap: 0.3rem; padding: 0; margin: 0; list-style: none; }
+  .visit__list li { display: flex; align-items: center; gap: 0.6rem; min-height: 40px; }
+  .visit__list :global(svg) { width: 19px; height: 19px; flex: none; color: var(--gold-700); }
+  .visit__list a { text-decoration: none; }
+  .visit__list a:hover { text-decoration: underline; }
+  .visit__map { position: relative; min-height: 460px; border-radius: var(--radius); overflow: hidden; background: radial-gradient(circle at 50% 45%, var(--cream-200), var(--cream-300)); box-shadow: 0 0 0 1px var(--line); }
+  .visit__map :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  /* Before the map loads, the placeholder shows the front of the building, so visitors know what to look for. */
+  .visit__map-face { position: absolute; inset: 0; display: grid; place-items: end center; padding: 1.25rem; text-align: center; }
+  .visit__map-face :global(picture) { position: absolute; inset: 0; display: block; }
+  .visit__map-face :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .visit__chip { position: relative; display: grid; justify-items: center; gap: 0.55rem; width: min(100%, 360px); padding: 1.1rem 1.25rem 1.2rem; border-radius: 18px; background: rgb(255 251 243 / 0.96); box-shadow: 0 24px 48px -24px rgb(23 12 6 / 0.6); }
+  .visit__pin { width: 44px; height: 44px; animation: bob 2.6s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
+  .visit__coords { font-family: var(--font-display); font-size: var(--step-1); }
+  .visit__hours { width: 100%; border-collapse: collapse; }
+  .visit__hours th, .visit__hours td { padding: 0.45rem 0; border-bottom: 1px solid var(--line); text-align: start; font-weight: 400; }
+  .visit__hours td { text-align: end; color: var(--muted); }
+  .visit__marks { display: grid; gap: 0.5rem; padding: 0; margin: 0; list-style: none; }
+  .visit__marks li { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
+  @media (min-width: 960px) {
+    .visit__grid { grid-template-columns: 1fr 1.3fr; align-items: stretch; }
+    .visit__map { min-height: 100%; }
+    .visit__grid :global(.visit__hours-card) { grid-column: 1 / -1; }
+  }
+</style>

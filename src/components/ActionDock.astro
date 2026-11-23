@@ -1,0 +1,49 @@
+---
+import { site, show, waLink, href, type Lang, type PageKey } from '../lib/site';
+import { ui } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props { lang: Lang; page: PageKey | 'other' }
+const { lang, page } = Astro.props;
+const t = ui[lang];
+const c = site.contact;
+const phone = show(c.phone) ? c.phone : null;
+const wa = show(c.whatsapp) ? c.whatsapp : null;
+---
+<nav class="dock" aria-label={t.dock.label} data-dock>
+  {phone && (
+    <a class="dock__btn" href={`tel:${phone.value}`}>
+      <Icon name="phone" /><span>{t.dock.call}</span>
+    </a>
+  )}
+  {wa && (
+    <a class="dock__btn" href={waLink(wa.value, t.cta.whatsappText)} target="_blank" rel="noopener">
+      <Icon name="whatsapp" /><span>{t.dock.whatsapp}</span>
+    </a>
+  )}
+  <a class="dock__btn" href={site.links.directions} target="_blank" rel="noopener"><Icon name="pin" /><span>{t.dock.directions}</span></a>
+  {page === 'restaurant' ? (
+    <a class="dock__btn dock__btn--primary" href="#menu"><Icon name="forkSpoon" /><span>{t.dock.menu}</span></a>
+  ) : page === 'banquet' ? (
+    <a class="dock__btn dock__btn--primary" href="#enquiry"><Icon name="cheers" /><span>{t.dock.enquire}</span></a>
+  ) : page === 'home' ? (
+    <a class="dock__btn dock__btn--primary" href="#doors"><Icon name="compass" /><span>{t.dock.explore}</span></a>
+  ) : (
+    <a class="dock__btn dock__btn--primary" href={site.links.booking} target="_blank" rel="noopener"><Icon name="bed" /><span>{t.dock.book}</span></a>
+  )}
+</nav>
+
+<style>
+  .dock { position: fixed; z-index: 55; left: 0; right: 0; bottom: 0; display: flex; gap: 2px; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); background: rgb(23 12 6 / 0.97); color: var(--cream-100); box-shadow: 0 -1px 0 rgb(226 188 114 / 0.25); transition: transform 0.5s var(--ease-out), opacity 0.4s; }
+  .dock__btn { flex: 1 1 0; display: grid; justify-items: center; align-content: center; gap: 2px; min-height: 52px; padding: 4px 2px; border-radius: 12px; text-decoration: none; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.02em; line-height: 1.15; text-align: center; }
+  .dock__btn :global(svg) { width: 22px; height: 22px; color: var(--gold-300); }
+  .dock__btn:hover { background: rgb(226 188 114 / 0.1); }
+  .dock__btn--primary { background: var(--metal-soft); color: var(--esp-900); }
+  .dock__btn--primary :global(svg) { color: var(--esp-900); }
+  @media (min-width: 900px) {
+    .dock { left: auto; right: var(--gutter); bottom: 22px; padding: 6px; gap: 4px; border-radius: 999px; border: 1px solid rgb(226 188 114 / 0.3); box-shadow: 0 18px 40px rgb(0 0 0 / 0.35); transform: translateY(150%); opacity: 0; }
+    :global(.dock--on) { transform: none; opacity: 1; }
+    .dock__btn { flex: none; grid-auto-flow: column; gap: 0.45rem; min-height: 46px; padding: 0 1.05rem; border-radius: 999px; font-size: 0.9rem; }
+    .dock__btn :global(svg) { width: 19px; height: 19px; }
+  }
+</style>

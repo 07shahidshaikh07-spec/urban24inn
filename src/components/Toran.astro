@@ -1,0 +1,50 @@
+---
+// A toran: the marigold-and-leaf garland hung over doorways for Marathi celebrations.
+// Drawn here in the brand's gold, with marigolds. Strands sway gently (CSS only).
+interface Props { class?: string; strands?: number }
+const { class: cls, strands = 17 } = Astro.props;
+const W = 1200;
+const gap = W / strands;
+const items = Array.from({ length: strands }, (_, i) => {
+  const x = gap / 2 + i * gap;
+  const flowers = i % 2 ? 2 : 3;
+  return { x, flowers, d: ((i * 37) % 11) * 0.17 };
+});
+const rope = items.reduce((d, it, i) => (i === 0 ? `M0 10 Q ${it.x / 2} 22 ${it.x} 12` : `${d} Q ${it.x - gap / 2} 26 ${it.x} 12`), '') + ` Q ${W - gap / 4} 22 ${W} 10`;
+---
+<svg class:list={['toran', cls]} viewBox={`0 0 ${W} 150`} preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="tor-leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7e7c1" />
+      <stop offset=".45" stop-color="#d4a452" />
+      <stop offset="1" stop-color="#8c5d1e" />
+    </linearGradient>
+  </defs>
+  <path d={rope} fill="none" stroke="#c08a3a" stroke-width="2.5" stroke-linecap="round" />
+  {items.map((it) => {
+    const len = it.flowers * 24 + 8;
+    return (
+      <g class="toran__strand" style={`--d:${it.d}s;--ox:${it.x}px`}>
+        <line x1={it.x} y1="12" x2={it.x} y2={12 + len} stroke="#8c5d1e" stroke-width="1.4" />
+        {Array.from({ length: it.flowers }, (_, k) => (
+          <g>
+            <circle cx={it.x} cy={26 + k * 24} r="10.5" fill="#e8962e" />
+            <circle cx={it.x} cy={26 + k * 24} r="10.5" fill="none" stroke="#d06a17" stroke-width="2" stroke-dasharray="3 3" />
+            <circle cx={it.x} cy={26 + k * 24} r="4.5" fill="#c4561a" />
+          </g>
+        ))}
+        <path d={`M${it.x} ${14 + len} c 9 10 9 28 0 40 c -9 -12 -9 -30 0 -40z`} fill="url(#tor-leaf)" />
+        <path d={`M${it.x} ${16 + len} v 34`} stroke="#8c5d1e" stroke-width=".8" opacity=".6" />
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .toran { display: block; width: 100%; height: auto; overflow: visible; }
+  /* SVG transforms animate on the main thread, so the sway starts only once the page is loaded (html.deco-live). */
+  .toran__strand { transform-box: view-box; transform-origin: var(--ox) 12px; animation: sway 3.4s ease-in-out var(--d) infinite alternate; animation-play-state: paused; }
+  :global(html.deco-live) .toran__strand { animation-play-state: running; }
+  @keyframes sway { from { transform: rotate(-2.6deg); } to { transform: rotate(2.6deg); } }
+  @media (prefers-reduced-motion: reduce) { .toran__strand { animation: none; } }
+</style>
