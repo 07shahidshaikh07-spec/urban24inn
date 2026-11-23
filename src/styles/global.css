@@ -49,7 +49,6 @@
   --section: clamp(4.5rem, 10vw, 9rem);
   --radius: 20px;
   --hdr-h: 72px;
-  --dock-h: 64px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
 

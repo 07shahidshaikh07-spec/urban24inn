@@ -1,11 +1,10 @@
 import { gsap } from 'gsap';
 import { motionOK, fine, type Cleanup } from './env';
 
-/** Header, dock, menu sheet, draft banner and map. Re-run on every page. */
+/** Header, menu sheet and map. Re-run on every page. */
 export function initChrome(): Cleanup {
   const offs: Cleanup[] = [];
   const hdr = document.querySelector<HTMLElement>('[data-hdr]');
-  const dock = document.querySelector<HTMLElement>('[data-dock]');
   const progress = document.querySelector<HTMLElement>('[data-progress]');
 
   // Header: solid after the first scroll, hides going down, returns going up.
@@ -18,7 +17,6 @@ export function initChrome(): Cleanup {
       hdr.classList.toggle('hdr--hidden', delta > 0 && y > 320);
       lastY = y;
     }
-    dock?.classList.toggle('dock--on', y > window.innerHeight * 0.55);
     const max = document.documentElement.scrollHeight - window.innerHeight;
     progress?.style.setProperty('--p', String(max > 0 ? Math.min(1, y / max) : 0));
   };

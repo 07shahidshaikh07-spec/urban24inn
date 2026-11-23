@@ -12,7 +12,6 @@ import { photos, type PhotoId } from '../lib/photos';
 import { ui } from '../i18n/ui';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ActionDock from '../components/ActionDock.astro';
 import Curtain from '../components/Curtain.astro';
 
 interface Props {
@@ -86,7 +85,6 @@ const themeColor = '#170c06';
       <slot />
     </main>
     <Footer lang={lang} />
-    <ActionDock lang={lang} page={page} />
     <Curtain />
     <div id="cursor" aria-hidden="true" transition:persist>
       <div class="cursor__ring"><span class="cursor__label"></span></div>

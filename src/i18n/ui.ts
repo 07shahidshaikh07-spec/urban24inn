@@ -29,7 +29,6 @@ const en = {
   skip: 'Skip to content',
   nav: { label: 'Main', home: 'Home', rooms: 'Rooms', restaurant: 'Restaurant', banquet: 'Banquet hall', rooftop: 'Rooftop', soon: 'soon', visit: 'Find us', book: 'Book now', open: 'Open menu', close: 'Close menu' },
   langSwitch: { label: 'मराठी', aria: 'Read this page in Marathi' },
-  dock: { label: 'Quick actions', call: 'Call', whatsapp: 'WhatsApp', directions: 'Directions', book: 'Book', menu: 'Menu', enquire: 'Enquire', explore: 'Explore' },
   booking: {
     label: 'Check room availability',
     checkin: 'Check in',
@@ -56,6 +55,8 @@ const en = {
     },
     intro: {
       eyebrow: 'One address',
+      levels: ['Ground floor', 'Upstairs', 'The hall', 'On the roof'],
+      stack: 'Urban 24 Inn, floor by floor',
       title: 'Check in upstairs, eat downstairs, celebrate in the hall.',
       text: 'Everything is in one building at Yashraj Arcade on the Ausa–PVR bypass, with parking at the building. And soon, the evening can end on the roof.',
     },
@@ -195,7 +196,6 @@ const mr: Dict = {
   skip: 'मुख्य मजकुराकडे जा',
   nav: { label: 'मुख्य', home: 'मुख्य पान', rooms: 'खोल्या', restaurant: 'रेस्टॉरंट', banquet: 'बँक्वेट हॉल', rooftop: 'रूफटॉप', soon: 'लवकरच', visit: 'पत्ता', book: 'बुक करा', open: 'मेनू उघडा', close: 'मेनू बंद करा' },
   langSwitch: { label: 'English', aria: 'हे पान इंग्रजीत वाचा' },
-  dock: { label: 'झटपट पर्याय', call: 'कॉल', whatsapp: 'व्हॉट्सॲप', directions: 'दिशा', book: 'बुक करा', menu: 'मेनू', enquire: 'चौकशी', explore: 'पाहा' },
   booking: {
     label: 'खोलीची उपलब्धता पाहा',
     checkin: 'चेक-इन',
@@ -222,6 +222,8 @@ const mr: Dict = {
     },
     intro: {
       eyebrow: 'एक पत्ता',
+      levels: ['तळमजला', 'वरचे मजले', 'हॉल', 'गच्चीवर'],
+      stack: 'अर्बन 24 इन, मजल्यानुसार',
       title: 'वर मुक्काम, खाली जेवण, हॉलमध्ये समारंभ.',
       text: 'सगळं एकाच इमारतीत — औसा–पीव्हीआर बायपासवरील यशराज आर्केडमध्ये, इमारतीजवळ पार्किंगसह. आणि लवकरच संध्याकाळ गच्चीवरही संपवता येईल.',
     },
