@@ -91,6 +91,9 @@ a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1p
 .h-display { font-size: var(--step-5); line-height: 0.98; }
 /* House style: every word in a heading starts with a capital letter. (Devanagari has no capitals, so Marathi is unaffected.) */
 h1, h2, h3, .h-display, .h-1, .h-2, .h-3 { text-transform: capitalize; }
+/* Marcellus has a single weight, so headings are thickened with a hairline outline in their own colour
+   instead of a synthetic bold (which smudges the letterforms). */
+h1, h2, h3, .h-display, .h-1, .h-2, .h-3 { -webkit-text-stroke: 0.018em currentColor; paint-order: stroke fill; }
 .h-1 { font-size: var(--step-4); line-height: 1.02; }
 .h-2 { font-size: var(--step-3); line-height: 1.08; }
 .h-3 { font-size: var(--step-2); line-height: 1.15; }
