@@ -120,14 +120,14 @@ const dials = [
           <DraftBlock confirmed={x.fact.confirmed} lang={lang} note={x.fact.source}>
             <div class="dial" data-dial data-time={x.fact.value}>
               <svg viewBox="0 0 200 200" aria-hidden="true">
-                <circle cx="100" cy="100" r="92" fill="none" stroke="#e2bc72" stroke-opacity=".35" stroke-width="1.5" />
-                <circle cx="100" cy="100" r="80" fill="none" stroke="#e2bc72" stroke-opacity=".12" stroke-width="10" />
+                <circle cx="100" cy="100" r="92" fill="none" stroke="#f3c45a" stroke-opacity=".35" stroke-width="1.5" />
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#f3c45a" stroke-opacity=".12" stroke-width="10" />
                 {Array.from({ length: 12 }, (_, i) => (
-                  <rect class="dial__tick" x="98.6" y="14" width="2.8" height={i % 3 === 0 ? 16 : 8} rx="1.4" fill="#e2bc72" fill-opacity={i % 3 === 0 ? 0.95 : 0.5} transform={`rotate(${i * 30} 100 100)`} />
+                  <rect class="dial__tick" x="98.6" y="14" width="2.8" height={i % 3 === 0 ? 16 : 8} rx="1.4" fill="#f3c45a" fill-opacity={i % 3 === 0 ? 0.95 : 0.5} transform={`rotate(${i * 30} 100 100)`} />
                 ))}
-                <line data-hand="h" x1="100" y1="100" x2="100" y2="54" stroke="#d4a452" stroke-width="6" stroke-linecap="round" />
-                <line data-hand="m" x1="100" y1="100" x2="100" y2="28" stroke="#fbf4e8" stroke-width="2.5" stroke-linecap="round" />
-                <circle cx="100" cy="100" r="6" fill="#d4a452" />
+                <line data-hand="h" x1="100" y1="100" x2="100" y2="54" stroke="#eaa91c" stroke-width="6" stroke-linecap="round" />
+                <line data-hand="m" x1="100" y1="100" x2="100" y2="28" stroke="#fcf8ed" stroke-width="2.5" stroke-linecap="round" />
+                <circle cx="100" cy="100" r="6" fill="#eaa91c" />
               </svg>
               <p class="dial__label">{x.label}</p>
               <p class="dial__time">{fmtTime(x.fact.value, lang)}</p>
@@ -207,7 +207,7 @@ const dials = [
   .am__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 1px; margin-top: clamp(2rem, 5vw, 3rem); padding: 0; list-style: none; background: var(--line); border-radius: var(--radius); overflow: hidden; }
   .am__item { display: flex; align-items: center; gap: 1rem; padding: 1.4rem 1.25rem; background: var(--esp-900); font-size: var(--step-0); transition: background-color 0.4s; }
   .am__item:hover { background: var(--esp-800); }
-  .am__ic { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 50%; border: 1px solid rgb(226 188 114 / 0.45); color: var(--gold-300); }
+  .am__ic { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 50%; border: 1px solid rgb(243 196 90 / 0.45); color: var(--gold-300); }
   .am__ic :global(svg) { width: 22px; height: 22px; }
 
   /* Plans */
@@ -216,7 +216,7 @@ const dials = [
   .plan { display: grid; grid-template-columns: auto 1fr; gap: 0.2rem 1.1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
   .plan dt { display: contents; }
   .plan__btn { grid-row: span 2; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; border: 1.5px solid var(--gold-500); font-weight: 600; font-size: 0.9rem; color: var(--gold-700); transition: background-color 0.35s, color 0.35s, box-shadow 0.35s; }
-  .plan:hover .plan__btn { background: var(--metal-soft); color: var(--esp-900); box-shadow: 0 0 0 6px rgb(212 164 82 / 0.18), 0 0 26px rgb(212 164 82 / 0.5); }
+  .plan:hover .plan__btn { background: var(--metal-soft); color: var(--esp-900); box-shadow: 0 0 0 6px rgb(234 169 28 / 0.18), 0 0 26px rgb(234 169 28 / 0.5); }
   .plan__name { font-size: var(--step-1); font-weight: 600; align-self: end; }
   .plan__code { font-weight: 400; color: var(--muted); }
   .plan dd { color: var(--muted); }

@@ -15,29 +15,22 @@ The home page wears the logo's own colours. Each inner page keeps the logo's esp
 
 ## Palette
 
-The base colours were sampled from the client's logo: espresso brown lettering, a metallic gold swoosh and a cream ground. Every text pairing passes WCAG AA; the ratios below are for normal-size text.
+Taken from the client's new logo (November 2026): olive green lettering `#384806`, a saffron leaf sprig `#E8A818` and a cream ground `#FCF8ED`. Deep olive is the dark colour, saffron the metallic accent, cream the light surface. (The CSS token names `--esp-*` and `--gold-*` date from the earlier espresso-and-gold theme; their values are now olive and saffron.) Every text pairing passes WCAG AA:
 
 | Token | Hex | Role | Contrast |
 |---|---|---|---|
-| esp-950 / esp-900 | `#170C06` / `#22110A` | Dark surfaces: header, hero, footer, transitions | Cream on esp-900: **16.7:1** |
-| esp-700 | `#3E2214` | Body text on cream | On cream-100: **13.3:1** |
-| gold-200 | `#EED39A` | Display type on espresso | On esp-950: **13.2:1** |
-| gold-400 | `#D4A452` | Eyebrows and accents on espresso | On esp-900: **8.0:1** |
-| gold-700 | `#8C5D1E` | Gold for text on cream (eyebrows, icons, focus ring) | On cream-100: **5.2:1** |
-| cream-100 / cream-50 | `#FBF4E8` / `#FFFBF3` | Light surfaces | — |
-| `--metal` | gradient `#8C5D1E → #D4A452 → #F7E7C1 → #C08A3A` | Gold buttons, seams, progress bar: the logo's metallic finish | Espresso text on the gold: **6.0:1** at the darkest stop it sits on |
+| esp-950 / esp-900 | `#141A07` / `#1C240A` | Dark olive surfaces, headings on cream | Cream on esp-900: **15.2:1** |
+| esp-700 | `#2C3810` | Body text on cream | **11.8:1** |
+| gold-400 | `#EAA91C` | Saffron accents and buttons on olive | On esp-900: **7.8:1** |
+| gold-700 | `#875B05` | Saffron for text on cream (eyebrows, icons) | **5.6:1** |
+| muted (light) | `#596040` | Secondary text on cream | **6.2:1** |
+| muted (dark) | `#CDD2B4` | Secondary text on olive | **10.3:1** |
+| cream-100 | `#FCF8ED` | Light surfaces (the logo's own ground) | — |
+| `--metal` | `#875B05 → #EAA91C → #FDF0CF → #D4920F` | Saffron buttons, seams, progress line | Olive text on it: **6.1:1** at the darkest stop |
 
-Accents per service (used on that page only):
+Accents kept per page: cinnamon `#A4532B` (restaurant), marigold `#E8962E` (banquet toran and petals) and night `#0D0F14` (rooftop).
 
-| Accent | Hex | Page | Contrast |
-|---|---|---|---|
-| cinnamon | `#A4532B` | Restaurant: warm spice against ivory and paper | On ivory: **5.2:1** |
-| marigold | `#E8962E` | Banquet hall: the colour of a wedding toran | On esp-950: **8.1:1** |
-| night | `#0D0F14` + gold-300 | Rooftop teaser: night sky with gold stars | Gold-300 on night: **10.7:1** |
-
-The veg and non-veg marks follow the FSSAI symbols: a green square with a dot (`#1D7A3A`, 5.2:1 on paper) and a brown square with a triangle (`#8C3B12`, 7.4:1).
-
-The four reference sites the client shared were used for **layout and motion ideas only**, never their colours, as the client asked.
+Logo files in `src/assets/brand/` are cut from `logo-source-2026-11.jpg`: dark lettering for bright backgrounds, cream lettering for dark ones, with and without "The Family Restaurant", and the leaf sprig alone as the mark (also used for the favicons).
 
 ## Photos
 

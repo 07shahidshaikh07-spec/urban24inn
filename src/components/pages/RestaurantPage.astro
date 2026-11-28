@@ -183,7 +183,7 @@ const notePrefix = lang === 'en' ? ' Note: ' : ' सूचना: ';
   .mn__tab { flex: none; display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 1rem; border: 1px solid var(--line); border-radius: 999px; background: none; font-weight: 600; color: var(--esp-900); white-space: nowrap; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
   .mn__tab[aria-selected='true'] { background: var(--cinnamon); color: var(--cream-50); border-color: var(--cinnamon); }
   .mn__tab:global(.is-empty) { opacity: 0.5; }
-  .mn__count { font-size: 0.75rem; font-weight: 600; min-width: 1.6em; padding: 0 0.4em; border-radius: 999px; background: rgb(34 17 10 / 0.08); text-align: center; }
+  .mn__count { font-size: 0.75rem; font-weight: 600; min-width: 1.6em; padding: 0 0.4em; border-radius: 999px; background: rgb(28 36 10 / 0.08); text-align: center; }
   .mn__tab[aria-selected='true'] .mn__count { background: rgb(255 251 243 / 0.22); }
   .mn__panels { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
   .mn__panel { content-visibility: auto; contain-intrinsic-size: auto 880px; }
@@ -193,7 +193,7 @@ const notePrefix = lang === 'en' ? ' Note: ' : ' सूचना: ';
   :global(:lang(mr)) .menu__cat { font-family: var(--font-mr); line-height: 1.35; }
   .mn__list { display: grid; gap: 0 3rem; padding: 0; margin: 0; list-style: none; }
   @media (min-width: 900px) { .mn__list { grid-template-columns: 1fr 1fr; } }
-  .mi { display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: baseline; padding-block: 0.85rem; border-bottom: 1px dashed rgb(34 17 10 / 0.2); }
+  .mi { display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: baseline; padding-block: 0.85rem; border-bottom: 1px dashed rgb(28 36 10 / 0.2); }
   .mi .mk { align-self: center; }
   .mi__name { display: grid; }
   .mi__primary { font-weight: 600; }
@@ -211,7 +211,7 @@ const notePrefix = lang === 'en' ? ' Note: ' : ' सूचना: ';
   .wf__f--half { grid-column: span 1; }
   .wf__f label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-300); }
   :global(:lang(mr)) .wf__f label { letter-spacing: 0.02em; font-size: 0.9rem; text-transform: none; }
-  .wf__f input, .wf__f textarea { width: 100%; min-height: 50px; padding: 0.7rem 0.9rem; border: 1px solid rgb(226 188 114 / 0.35); border-radius: 12px; background: rgb(0 0 0 / 0.2); color: var(--cream-100); font-size: 1rem; }
+  .wf__f input, .wf__f textarea { width: 100%; min-height: 50px; padding: 0.7rem 0.9rem; border: 1px solid rgb(243 196 90 / 0.35); border-radius: 12px; background: rgb(0 0 0 / 0.2); color: var(--cream-100); font-size: 1rem; }
   .wf__f input:focus-visible, .wf__f textarea:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 1px; border-color: var(--gold-300); }
   .wf__f input[aria-invalid='true'] { border-color: #ffb4a2; }
   .wf__err { font-size: var(--step--1); color: #ffcbbd; }

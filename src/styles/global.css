@@ -5,21 +5,21 @@
    Every text pairing below passes WCAG AA (see docs/02-design-notes.md).
    ========================================================= */
 :root {
-  --esp-950: #170c06;
-  --esp-900: #22110a;
-  --esp-800: #2e1810;
-  --esp-700: #3e2214;
-  --esp-500: #6b4429;
-  --gold-100: #f7e7c1;
-  --gold-200: #eed39a;
-  --gold-300: #e2bc72;
-  --gold-400: #d4a452;
-  --gold-500: #c08a3a;
-  --gold-700: #8c5d1e;
-  --cream-50: #fffbf3;
-  --cream-100: #fbf4e8;
-  --cream-200: #f3e6d0;
-  --cream-300: #e8d5b5;
+  --esp-950: #141a07;
+  --esp-900: #1c240a;
+  --esp-800: #26310d;
+  --esp-700: #2c3810;
+  --esp-500: #5c6b28;
+  --gold-100: #fdf0cf;
+  --gold-200: #f9dc95;
+  --gold-300: #f3c45a;
+  --gold-400: #eaa91c;
+  --gold-500: #d4920f;
+  --gold-700: #875b05;
+  --cream-50: #fffdf6;
+  --cream-100: #fcf8ed;
+  --cream-200: #f3edd8;
+  --cream-300: #e6dcbc;
   --cinnamon: #a4532b;
   --copper: #c9733f;
   --saffron: #e5a13a;
@@ -29,8 +29,8 @@
   --night-800: #161a22;
   --veg: #1d7a3a;
   --nonveg: #8c3b12;
-  --metal: linear-gradient(115deg, #8c5d1e 0%, #d4a452 26%, #f7e7c1 46%, #c08a3a 63%, #8c5d1e 100%);
-  --metal-soft: linear-gradient(115deg, #b98536 0%, #e6c37e 45%, #c99447 100%);
+  --metal: linear-gradient(115deg, #875b05 0%, #eaa91c 26%, #fdf0cf 46%, #d4920f 63%, #875b05 100%);
+  --metal-soft: linear-gradient(115deg, #c98a0c 0%, #f7d27a 45%, #d99a14 100%);
 
   --font-display: Marcellus, 'Cormorant Garamond', Georgia, serif;
   --font-text: Mukta, 'Noto Sans Devanagari', 'Segoe UI', system-ui, sans-serif;
@@ -54,20 +54,20 @@
 
   --bg: var(--cream-100);
   --fg: var(--esp-700);
-  --muted: #6e5240;
+  --muted: #596040;
   --accent: var(--gold-700);
-  --line: rgb(62 34 20 / 0.14);
+  --line: rgb(44 56 16 / 0.14);
   --focus: var(--gold-700);
   color-scheme: light;
 }
 
 /* ---------- Surfaces ---------- */
-.s-cream { --bg: var(--cream-100); --fg: var(--esp-700); --muted: #6e5240; --accent: var(--gold-700); --line: rgb(62 34 20 / 0.14); --focus: var(--gold-700); }
-.s-ivory { --bg: var(--ivory); --fg: var(--esp-700); --muted: #6e5240; --accent: var(--cinnamon); --line: rgb(62 34 20 / 0.14); --focus: var(--cinnamon); }
-.s-paper { --bg: var(--cream-50); --fg: var(--esp-900); --muted: #6e5240; --accent: var(--cinnamon); --line: rgb(34 17 10 / 0.14); --focus: var(--cinnamon); }
-.s-esp { --bg: var(--esp-900); --fg: var(--cream-100); --muted: #cdb9a3; --accent: var(--gold-400); --line: rgb(226 188 114 / 0.2); --focus: var(--gold-300); }
-.s-esp-deep { --bg: var(--esp-950); --fg: var(--cream-100); --muted: #cdb9a3; --accent: var(--gold-400); --line: rgb(226 188 114 / 0.18); --focus: var(--gold-300); }
-.s-night { --bg: var(--night-900); --fg: #f3ede2; --muted: #b9b4aa; --accent: var(--gold-300); --line: rgb(226 188 114 / 0.18); --focus: var(--gold-300); }
+.s-cream { --bg: var(--cream-100); --fg: var(--esp-700); --muted: #596040; --accent: var(--gold-700); --line: rgb(44 56 16 / 0.14); --focus: var(--gold-700); }
+.s-ivory { --bg: var(--ivory); --fg: var(--esp-700); --muted: #596040; --accent: var(--cinnamon); --line: rgb(44 56 16 / 0.14); --focus: var(--cinnamon); }
+.s-paper { --bg: var(--cream-50); --fg: var(--esp-900); --muted: #596040; --accent: var(--cinnamon); --line: rgb(28 36 10 / 0.14); --focus: var(--cinnamon); }
+.s-esp { --bg: var(--esp-900); --fg: var(--cream-100); --muted: #cdd2b4; --accent: var(--gold-400); --line: rgb(243 196 90 / 0.2); --focus: var(--gold-300); }
+.s-esp-deep { --bg: var(--esp-950); --fg: var(--cream-100); --muted: #cdd2b4; --accent: var(--gold-400); --line: rgb(243 196 90 / 0.18); --focus: var(--gold-300); }
+.s-night { --bg: var(--night-900); --fg: #f3ede2; --muted: #b9b4aa; --accent: var(--gold-300); --line: rgb(243 196 90 / 0.18); --focus: var(--gold-300); }
 :is(.s-cream, .s-ivory, .s-paper, .s-esp, .s-esp-deep, .s-night) { background-color: var(--bg); color: var(--fg); }
 
 /* ---------- Reset ---------- */
@@ -123,7 +123,7 @@ main:focus { outline: none; }
 .btn { --b-bg: transparent; --b-fg: var(--fg); --b-bd: currentColor; position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.65em; min-height: 50px; padding: 0.72em 1.5em 0.66em; border: 1.5px solid var(--b-bd); border-radius: 999px; background: var(--b-bg); color: var(--b-fg); font-family: var(--font-text); font-weight: 600; font-size: 0.98rem; letter-spacing: 0.02em; line-height: 1.1; text-decoration: none; overflow: hidden; isolation: isolate; transition: color 0.35s var(--ease-out), border-color 0.35s, background-color 0.35s; will-change: transform; }
 .btn svg { width: 1.15em; height: 1.15em; flex: none; transition: transform 0.5s var(--ease-out); }
 .btn:hover svg { transform: translateX(3px); }
-.btn--gold { --b-bg: var(--metal-soft); --b-fg: var(--esp-900); --b-bd: transparent; background-size: 200% 100%; background-position: 0 0; transition: background-position 0.8s var(--ease-out), color 0.3s; box-shadow: 0 10px 30px -12px rgb(192 138 58 / 0.7); }
+.btn--gold { --b-bg: var(--metal-soft); --b-fg: var(--esp-900); --b-bd: transparent; background-size: 200% 100%; background-position: 0 0; transition: background-position 0.8s var(--ease-out), color 0.3s; box-shadow: 0 10px 30px -12px rgb(212 146 15 / 0.7); }
 .btn--gold:hover { background-position: 100% 0; }
 /* A band of light crosses gold buttons on hover. */
 .btn--gold::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(105deg, transparent 35%, rgb(255 250 235 / 0.55) 50%, transparent 65%); transform: translateX(-130%); transition: transform 0.9s var(--ease-out); pointer-events: none; }
@@ -172,7 +172,7 @@ figure > picture > img, [data-reveal] > picture > img, .fill > picture > img, .f
 .has-cursor #cursor { display: block; }
 .cursor__ring { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; border: 1.5px solid var(--gold-400); display: grid; place-items: center; transform: scale(0.32); transition: transform 0.45s var(--ease-out), background-color 0.3s, border-color 0.3s; }
 .cursor__label { font: 600 10.5px/1 var(--font-text); letter-spacing: 0.08em; text-transform: uppercase; color: var(--esp-900); opacity: 0; transition: opacity 0.2s; white-space: nowrap; }
-#cursor.is-link .cursor__ring { transform: scale(1); background: rgb(212 164 82 / 0.16); }
+#cursor.is-link .cursor__ring { transform: scale(1); background: rgb(234 169 28 / 0.16); }
 #cursor.is-label .cursor__ring { transform: scale(1.95); background: var(--gold-300); border-color: var(--gold-300); }
 #cursor.is-label .cursor__label { opacity: 1; }
 #cursor.is-down .cursor__ring { transform: scale(0.8); }

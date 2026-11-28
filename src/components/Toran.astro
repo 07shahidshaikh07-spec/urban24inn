@@ -15,17 +15,17 @@ const rope = items.reduce((d, it, i) => (i === 0 ? `M0 10 Q ${it.x / 2} 22 ${it.
 <svg class:list={['toran', cls]} viewBox={`0 0 ${W} 150`} preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="tor-leaf" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f7e7c1" />
-      <stop offset=".45" stop-color="#d4a452" />
-      <stop offset="1" stop-color="#8c5d1e" />
+      <stop offset="0" stop-color="#fdf0cf" />
+      <stop offset=".45" stop-color="#eaa91c" />
+      <stop offset="1" stop-color="#875b05" />
     </linearGradient>
   </defs>
-  <path d={rope} fill="none" stroke="#c08a3a" stroke-width="2.5" stroke-linecap="round" />
+  <path d={rope} fill="none" stroke="#d4920f" stroke-width="2.5" stroke-linecap="round" />
   {items.map((it) => {
     const len = it.flowers * 24 + 8;
     return (
       <g class="toran__strand" style={`--d:${it.d}s;--ox:${it.x}px`}>
-        <line x1={it.x} y1="12" x2={it.x} y2={12 + len} stroke="#8c5d1e" stroke-width="1.4" />
+        <line x1={it.x} y1="12" x2={it.x} y2={12 + len} stroke="#875b05" stroke-width="1.4" />
         {Array.from({ length: it.flowers }, (_, k) => (
           <g>
             <circle cx={it.x} cy={26 + k * 24} r="10.5" fill="#e8962e" />
@@ -34,7 +34,7 @@ const rope = items.reduce((d, it, i) => (i === 0 ? `M0 10 Q ${it.x / 2} 22 ${it.
           </g>
         ))}
         <path d={`M${it.x} ${14 + len} c 9 10 9 28 0 40 c -9 -12 -9 -30 0 -40z`} fill="url(#tor-leaf)" />
-        <path d={`M${it.x} ${16 + len} v 34`} stroke="#8c5d1e" stroke-width=".8" opacity=".6" />
+        <path d={`M${it.x} ${16 + len} v 34`} stroke="#875b05" stroke-width=".8" opacity=".6" />
       </g>
     );
   })}
